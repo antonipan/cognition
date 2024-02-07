@@ -1,0 +1,16 @@
+server:
+  port: 5555
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:2345/cognitiondb
+    username: antonio
+    password: antonio
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true

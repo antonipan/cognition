@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Учителя</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h2>Список преподвателей</h2>
+    <p>Ниже представлен список преподавателей, их стаж и предметы. </p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Предмет</th>
+            ,<th>Стаж</th>
+        </tr>
+        <tr th:each="teacher: ${teachers}">
+            <th th:text = "${teacher.id}"></th>
+            <th th:text="${teacher.name}"></th>
+            <th th:text = "${teacher.subject}"></th>
+            <th th:text = "${teacher.experience}"></th>
+        </tr>
+    </table>
+
+    <th><a th:href = "@{/questionnaires}">Посмотреть все доступные методики</a></th>
+    <p></p>
+    <p><th><a th:href = "@{teachers/filter/0}">Фильтровать по опыту работы(по умолчанию - 0)</a></th></p>
+    <p><th><a th:href = "@{/teachers}">Фильтровать по предмету (функционал не доступен)</a></th></p>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Методика</title>
+    </head>
+    <body>
+        <h2 th:text="${questionnaire.name}">Название: </h2>
+            <p>ID: <span th:text="${questionnaire.id}"></span></p>
+            <p>Автор: <span th:text="${questionnaire.author}"></span></p>
+            <p>Количество вопросов: <span th:text="${questionnaire.quantityQuestions}"></span></p>
+            <p>Необходимый коэффициент прохождения: <span th:text="${questionnaire.shareCorrectAnswers}"></span></p>
+        <a th:href = "@{/questionnaires}">Назад</a>
+    </body>
+</html>

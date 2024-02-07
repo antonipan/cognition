@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Методика</title>
+    </head>
+    <body>
+        <h2>Api</h2>
+        <h3>Ниже представлен api приложения "cognition". </h3>
+        <p><b>/api</b></p>
+        <p>@GET - получить api по текущему приложению</p>
+
+        <h4>TEACHER</h4>
+
+        <p><b>/teachers</b></p>
+        <p>
+            @GET - добавляет список учителей в базу данных</br>
+            @POST - показывает список учителей из базы данных
+        </p>
+        <p><b>/teachers/{id}</b></p>
+        <p>
+            @GET - показывает список учителей из базы данных</br>
+            </br>@POST - добавляет список учителей в базу данных
+            </br>@PUT - обновляет данные об учителе по его id в базе данных
+            </br>@DELETE - удаляет учителя по его id из базы данных
+        </p>
+        <p><b>/teachers/sort/{paramSorted}</b></p>
+        <p>
+            @GET - если paramSorted = name - происходит, сортировка по имени; если "subject" - по предмету учителя;
+            если "experience" - по опыту</br>
+        </p>
+        <p><b>/teachers/filter/{experience}</b></p>
+        <p>
+            @GET - фильтрует и отображает список учителей по стажу работы
+        </p>
+        <p><b>/teachers/subjects/{subject}</b></p>
+        <p>
+            @GET - фильтрует и отображает список учителей по стажу работы
+        </p>
+        <h4>QUESTIONNAIRE</h4>
+        <p><b>"/questionnaires"</b></p>
+        <p>
+            @GET - добавляет список методик в базу данных</br>
+            @POST - показывает список методик из базы данных
+        </p>
+        <p><b>"/questionnaires/{id}"</b></p>
+        <p>
+            @GET - получает методику по id из базы данных
+        </p>
+    </body>
+</html>

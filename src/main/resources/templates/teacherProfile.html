@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Методика</title>
+    </head>
+    <body>
+        <h2 th:text="${teacher.name}">Имя: </h2>
+        <p>ID: <span th:text="${teacher.id}"></span></p>
+        <p>Предмет: <span th:text="${teacher.subject}"></span></p>
+        <p>Стаж работы: <span th:text="${teacher.experience}"></span></p>
+        <a th:href = "@{/teachers}">Назад</a>
+    </body>
+</html>
