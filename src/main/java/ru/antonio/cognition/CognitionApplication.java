@@ -10,3 +10,7 @@ public class CognitionApplication {
 		SpringApplication.run(CognitionApplication.class, args);
 	}
 }
+
+// TODO: 07.02.2024 Добавить документацию 
+// TODO: 07.02.2024 Сделать таблицы хранения пользователей, ролей и их соответствия
+// TODO: 07.02.2024 сделать связь таблиц на уровне кода.
