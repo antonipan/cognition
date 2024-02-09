@@ -1,4 +1,4 @@
-package ru.antonio.cognition.annotations;
+package ru.antonio.cognition.aspects;
 
 
 import org.springframework.stereotype.Component;

@@ -61,7 +61,7 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     public String getByIdTeacher(@PathVariable Long id, Model model){
-        model.addAttribute("teachers", teacherService.getTeacherById(id));
+        model.addAttribute("teacher", teacherService.getTeacherById(id));
         return "teacherProfile";
     }
 
