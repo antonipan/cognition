@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:2345/cognitiondb
+    url: jdbc:postgresql://localhost:2211/cognitiondb
     username: antonio
     password: antonio
   jpa:
