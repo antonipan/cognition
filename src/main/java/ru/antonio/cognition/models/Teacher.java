@@ -1,4 +1,4 @@
-package ru.antonio.cognition.model;
+package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
 

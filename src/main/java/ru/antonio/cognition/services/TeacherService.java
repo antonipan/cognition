@@ -2,7 +2,7 @@ package ru.antonio.cognition.services;
 
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
-import ru.antonio.cognition.model.Teacher;
+import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeachRepository;
 
 import java.util.List;

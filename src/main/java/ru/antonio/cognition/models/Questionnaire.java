@@ -1,6 +1,9 @@
-package ru.antonio.cognition.model;
+package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
+import org.aspectj.weaver.patterns.TypePatternQuestions;
+
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "questionnaires")
@@ -21,6 +24,8 @@ public class Questionnaire {
 
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
+
+    private ArrayList <Question> questions;
 
     public Questionnaire(String name, String author, int quantityQuestions, double shareCorrectAnswers) {
         this.name = name;

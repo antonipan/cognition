@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.services.QuestionnaireService;
-import ru.antonio.cognition.model.Questionnaire;
+import ru.antonio.cognition.models.Questionnaire;
 
 import java.util.List;
 
