@@ -9,54 +9,51 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ru.antonio.cognition.aspects.TrackTeacherActionAspect;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeachRepository;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TeacherServiceTest {
 
-    @Mock
-    private TeachRepository teachRepository;
-
-    InjectMocks
+    @InjectMocks
     private TeacherService teacherService;
 
-    Teacher teacher1;
-    Teacher teacher2;
-    Teacher teacher3;
+    @Mock
+    private TeachRepository teachRepository;
 
     List<Teacher> teacherList;
 
     @BeforeEach
     public void setup () {
         MockitoAnnotations.openMocks(this);
-        teacher1 = new Teacher("ivan", "history", 5);
-        teacher1.setId(10L);
 
-        teacher2 = new Teacher("Inna", "Math", 10);
-        teacher2.setId(100L);
+        teacherList = new ArrayList<>();
 
-        teacher3 = new Teacher("", "Math", 10);
-        teacher3.setId(1000L);
+        Teacher teacher1 = new Teacher("ivan", "history", 5);
+        Teacher teacher2 = new Teacher("Inna", "Math", 10);
+        Teacher teacher3 = new Teacher("Pavel", "Politica", 3);
 
         teacherList.add(teacher1);
         teacherList.add(teacher2);
         teacherList.add(teacher3);
+
+        System.out.println(teacherList.size() + " РАЗМЕР ЛИСТА") ;
+
     }
 
     @Test
     public void saveTeacherTest () {
         Teacher teacher = new Teacher();
         teacherService.saveTeacher(teacher);
-
         Mockito.verify(teachRepository, Mockito.times(1)).save(teacher);
     }
 
@@ -67,7 +64,23 @@ public class TeacherServiceTest {
         Mockito.verify(teachRepository, Mockito.times(1)).saveAll(teacherList);
     }
 
+    @Test
+    public void getListTeachers () {
+        when(teachRepository.findAll()).thenReturn(teacherList);
+        List <Teacher> foundTeachers = teacherService.getListTeachers();
+        assertEquals(3, foundTeachers.size());
 
+    }
 
+    @Test
+    public void getTeacherByExperienceTest () {
+        Teacher teacher = new Teacher("p", "v", 5);
+        List <Teacher> teachers = new ArrayList<>();
+        teachers.add(teacher);
+        when(teachRepository.findByExperience(5)).thenReturn(teachers);
 
+        List <Teacher> foundlist = teacherService.getListByExperience(5);
+        assertEquals(5, foundlist.get(0).getExperience());
+
+    }
 }

@@ -1,5 +1,6 @@
 package ru.antonio.cognition.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
 import ru.antonio.cognition.models.Teacher;
@@ -12,6 +13,7 @@ public class TeacherService {
 
     private final TeachRepository teachRepository;
 
+    @Autowired
     public TeacherService(TeachRepository teachRepository) {
         this.teachRepository = teachRepository;
     }
@@ -21,7 +23,7 @@ public class TeacherService {
       * @param teacher - учитель
      * @return - учитель.
      */
-    @TrackTeacherAction
+
     public Teacher saveTeacher (Teacher teacher) {
         return teachRepository.save(teacher);
     }
