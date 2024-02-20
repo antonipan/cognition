@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.antonio.cognition.aspects.TrackTeacherActionAspect;
+
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeachRepository;
 
