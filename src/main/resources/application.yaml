@@ -1,10 +1,5 @@
 
-#
-info:
-  app:
-    name: "cognition"
-    version: "1.0.1"
-    description: "something cognition"
+
 
 server:
   port: 5555
@@ -22,6 +17,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+#
+info:
+  app:
+    name: "cognition"
+    version: "1.0.1"
+    description: "something cognition"
+#Управление точками входа.
 management:
   endpoint:
     health:
@@ -35,13 +37,22 @@ management:
           status:
             http-mapping:
               up: 207
-  endpoints:
+    prometheus:
+      enabled: true
+  endpoints: # Относится ко всем эндпоинтам.
     web:
       exposure:
         include: '*'
+  # Включает метрики
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  # Информация о переменных среды.
   info:
     env:
       enabled: true
+
 
 
 

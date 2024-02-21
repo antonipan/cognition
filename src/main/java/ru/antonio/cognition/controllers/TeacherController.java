@@ -1,5 +1,6 @@
 package ru.antonio.cognition.controllers;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,13 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
+
+    private final MeterRegistry meterRegistry;
+
     @Autowired
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, MeterRegistry meterRegistry) {
         this.teacherService = teacherService;
+        this.meterRegistry = meterRegistry;
     }
 
     @PostMapping()
@@ -26,6 +31,7 @@ public class TeacherController {
 
     @GetMapping
     public String getAllTeachers (Model model){
+        meterRegistry.counter("counter-getteach").increment();
         model.addAttribute("teachers", teacherService.getListTeachers());
         return "teachers";
     }

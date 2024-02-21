@@ -1,0 +1,13 @@
+version: '3'
+volumes:
+  prometheus_data:
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: promet1
+    volumes:
+      - ./src/main/resources/metric/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./src/main/resources/metric/prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+
