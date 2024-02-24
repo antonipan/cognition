@@ -32,7 +32,7 @@ public class SecurityConfig {
                             .hasRole("TEACH")
                             .requestMatchers("/questionnaire/**")
                             .hasAnyRole("TEACH", "STUD")
-                            .requestMatchers("/api/**").permitAll()
+                            .requestMatchers("/api/**", "/actuator/prometheus").permitAll()
                             .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer

@@ -1,6 +1,3 @@
-
-
-
 server:
   port: 5555
 
@@ -44,14 +41,14 @@ management:
       exposure:
         include: '*'
   # Включает метрики
-  metrics:
-    export:
-      prometheus:
-        enabled: true
   # Информация о переменных среды.
   info:
     env:
       enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 
 
