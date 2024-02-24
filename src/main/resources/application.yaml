@@ -15,11 +15,13 @@ spring:
         format_sql: true
     show-sql: true
 
+
 info:
   app:
     name: "cognition"
     version: "1.0.1"
     description: "something cognition"
+
 #Управление точками входа.
 management:
   endpoint:

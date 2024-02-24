@@ -30,6 +30,7 @@ public class SecurityConfig {
                             .hasRole("TEACH")
                             .requestMatchers("/teachers/**")
                             .hasRole("TEACH")
+                            .requestMatchers("/actuator/**").permitAll()
                             .requestMatchers("/questionnaire/**")
                             .hasAnyRole("TEACH", "STUD")
                             .requestMatchers("/api/**", "/actuator/prometheus").permitAll()
