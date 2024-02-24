@@ -1,0 +1,17 @@
+{
+	"ulid": "01HQDT2TPTR7JCATVVH5RTF388",
+	"minTime": 1708776001020,
+	"maxTime": 1708783200000,
+	"stats": {
+		"numSamples": 469046,
+		"numSeries": 1028,
+		"numChunks": 4323
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01HQDT2TPTR7JCATVVH5RTF388"
+		]
+	},
+	"version": 1
+}
