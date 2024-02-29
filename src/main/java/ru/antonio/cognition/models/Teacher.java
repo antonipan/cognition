@@ -1,10 +1,15 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
+import ru.antonio.cognition.observers.Observable;
+import ru.antonio.cognition.observers.Observer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher {
+public class Teacher implements Observable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,10 +23,13 @@ public class Teacher {
     @Column(name = "experience", nullable = false)
     private int experience;
 
+    List <Observer> students;
+
     public Teacher(String name, String subject, int experience) {
         this.name = name;
         this.subject = subject;
         this.experience = experience;
+        this.students = new ArrayList<>();
     }
     public Teacher (){
 
@@ -68,5 +76,20 @@ public class Teacher {
                 ", subject='" + subject + '\'' +
                 ", experience=" + experience +
                 '}';
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+
+    }
+
+    @Override
+    public void notifyObserver(Observer o) {
+
     }
 }

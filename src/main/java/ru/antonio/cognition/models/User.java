@@ -31,7 +31,8 @@ public class User {
     @Transient
     private String name;
 
-    private String role;
+    @Transient
+    transient private String role;
 
     @Transient
     private int phone;
