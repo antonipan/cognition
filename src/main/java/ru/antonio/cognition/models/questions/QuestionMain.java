@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires.questions;
+package ru.antonio.cognition.models.questions;
 
 public abstract class QuestionMain {
 

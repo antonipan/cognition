@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires.answers;
+package ru.antonio.cognition.models.answers;
 
 public class Answer {
     private int id;

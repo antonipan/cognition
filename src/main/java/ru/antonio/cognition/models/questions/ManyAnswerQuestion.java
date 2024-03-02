@@ -1,6 +1,6 @@
-package ru.antonio.cognition.questionnaires.questions;
+package ru.antonio.cognition.models.questions;
 
-import ru.antonio.cognition.questionnaires.answers.Answer;
+import ru.antonio.cognition.models.answers.Answer;
 
 import java.util.ArrayList;
 import java.util.List;

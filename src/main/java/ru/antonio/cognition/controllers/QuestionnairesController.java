@@ -1,11 +1,11 @@
-package ru.antonio.cognition.questionnaires;
+package ru.antonio.cognition.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.antonio.cognition.questionnaires.QuestionnaireService;
-import ru.antonio.cognition.questionnaires.Questionnaire;
+import ru.antonio.cognition.models.Questionnaire;
+import ru.antonio.cognition.services.QuestionnaireService;
 
 import java.util.List;
 

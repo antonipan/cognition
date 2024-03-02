@@ -1,6 +1,7 @@
-package ru.antonio.cognition.questionnaires.factory;
+package ru.antonio.cognition.models.factory;
 
-import ru.antonio.cognition.questionnaires.questions.*;
+import ru.antonio.cognition.controllers.questions.*;
+import ru.antonio.cognition.models.questions.*;
 
 public class QuestionFactory {
 

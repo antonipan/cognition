@@ -1,4 +1,4 @@
-package ru.antonio.cognition.observers;
+package ru.antonio.cognition.repositories;
 
 public interface Observable {
     void registerObserver(Observer o);

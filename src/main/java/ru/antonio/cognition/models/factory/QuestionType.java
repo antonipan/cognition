@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires.factory;
+package ru.antonio.cognition.models.factory;
 
 public enum QuestionType {
 

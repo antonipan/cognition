@@ -1,8 +1,8 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
-import ru.antonio.cognition.observers.Observable;
-import ru.antonio.cognition.observers.Observer;
+import ru.antonio.cognition.repositories.Observable;
+import ru.antonio.cognition.repositories.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

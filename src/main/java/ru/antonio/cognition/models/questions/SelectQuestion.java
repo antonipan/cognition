@@ -1,6 +1,4 @@
-package ru.antonio.cognition.questionnaires.questions;
-
-import ru.antonio.cognition.questionnaires.answers.Answer;
+package ru.antonio.cognition.models.questions;
 
 public interface SelectQuestion extends Question {
 

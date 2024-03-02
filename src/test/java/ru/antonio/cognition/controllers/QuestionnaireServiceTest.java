@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires;
+package ru.antonio.cognition.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ru.antonio.cognition.models.Questionnaire;
+import ru.antonio.cognition.repositories.QuestionnaireRepository;
+import ru.antonio.cognition.services.QuestionnaireService;
 
 import java.util.ArrayList;
 import java.util.List;

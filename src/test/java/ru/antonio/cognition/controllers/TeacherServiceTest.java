@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires;
+package ru.antonio.cognition.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.antonio.cognition.models.Teacher;
-import ru.antonio.cognition.teachers.TeachRepository;
-import ru.antonio.cognition.teachers.TeacherService;
+import ru.antonio.cognition.repositories.TeachRepository;
+import ru.antonio.cognition.services.TeacherService;
 
 
 import java.util.ArrayList;

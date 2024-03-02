@@ -1,9 +1,10 @@
-package ru.antonio.cognition.teachers;
+package ru.antonio.cognition.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
+import ru.antonio.cognition.repositories.TeachRepository;
 
 import java.util.List;
 

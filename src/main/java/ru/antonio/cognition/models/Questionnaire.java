@@ -1,4 +1,4 @@
-package ru.antonio.cognition.questionnaires;
+package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
 
