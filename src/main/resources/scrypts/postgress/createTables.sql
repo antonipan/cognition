@@ -3,7 +3,7 @@
 
 
 create table if not exists users (
-    "id" serial not null primary key,
+    "id" bigserial not null primary key,
     "username" varchar(255) not null,
     "password" varchar(255) not null
 );
@@ -11,7 +11,7 @@ create table if not exists users (
 
 -- table roles
 create table if not exists roles (
-    "id"  serial primary key,
+    "id"  bigserial primary key,
     "role" varchar(45) not null
 );
 

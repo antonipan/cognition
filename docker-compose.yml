@@ -16,16 +16,16 @@ services:
       - "9090:9090"
 
   db:
-    image: 0544a12545a00a777857ab39cd624c84661bc1a9678a5355142f23e18de1ff98
+    image: postgres:16-bookworm
+    container_name: cognition_db_v1
     restart: always
-    shm_size: 728mb
     volumes:
       - ./database/postgres/cognition/v1:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: antonio
-      POSTGRES_USER: antonio
+      POSTGRES_PASSWORD: toni
+      POSTGRES_USER: toni
     ports:
-      - "2211:5432"
+      - "5577:5432"
 
   adminer:
     image: adminer
@@ -34,7 +34,7 @@ services:
       - "5566:8080"
 
   grafana:
-    image: ff21454da76ac5c8e020742f732e312749b4785dc1acbd55baa84387c23153bc
+    image: grafana/grafana
     depends_on:
       - prometheus
     ports:

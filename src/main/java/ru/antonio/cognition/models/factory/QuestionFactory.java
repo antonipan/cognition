@@ -1,6 +1,5 @@
 package ru.antonio.cognition.models.factory;
 
-import ru.antonio.cognition.controllers.questions.*;
 import ru.antonio.cognition.models.questions.*;
 
 public class QuestionFactory {

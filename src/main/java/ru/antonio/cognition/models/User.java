@@ -9,7 +9,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -40,17 +40,15 @@ public class User {
     @Transient
     private String email;
 
-    public User(Long id, String login, String password, String role) {
+    public User(Long id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;
-        this.role = role;
     }
 
-    public User(String login, String password, String role) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.role = role;
     }
 
     public User() {
