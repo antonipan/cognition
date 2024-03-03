@@ -22,32 +22,20 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    transient private String confirmPassword;
+    @Column(name = "role")
+    private String role;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet;
+//    @ManyToMany
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roleSet;
 
 
-    @Transient
-    private String name;
-
-    @Transient
-    transient private String role;
-
-    @Transient
-    private int phone;
-
-    @Transient
-    private String email;
-
-    public User(Long id, String username, String password) {
-        this.id = id;
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public User(String username, String password) {
@@ -66,36 +54,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return username;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public Set<Role> getRoleSet() {
-        return roleSet;
-    }
-
-    public void setRoleSet(Set<Role> roleSet) {
-        this.roleSet = roleSet;
-    }
-
-    public void setLogin(String login) {
-        this.username = login;
     }
 
     public String getPassword() {
@@ -106,35 +70,11 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
