@@ -2,6 +2,7 @@ package ru.antonio.cognition.controllers;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class TeacherController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_TEACH')")
     public String getAllTeachers (Model model){
         meterRegistry.counter("counter-getteach").increment();
         model.addAttribute("teachers", teacherService.getListTeachers());
@@ -59,6 +61,7 @@ public class TeacherController {
     }
 
     @GetMapping("/subjects/{subject}")
+    @PreAuthorize("hasAuthority('teacher')")
     public String getBySubject(@PathVariable String subject, Model model) {
         model.addAttribute("teachers", teacherService.getListBySubjects(subject));
         return "teachers";

@@ -1,6 +1,7 @@
 package ru.antonio.cognition.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class QuestionnairesController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_STUD')")
     public String getAllQuestionnaires (Model model) {
         model.addAttribute("questionnaires", questionnaireService.getAllQuestionnaire());
         return "questionnaires";
