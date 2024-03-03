@@ -2,7 +2,7 @@
 -- table users
 
 
-create table if not exists users (
+create table if not exists "users" (
     "id" bigserial not null primary key,
     "username" varchar(255) not null,
     "password" varchar(255) not null
@@ -16,10 +16,10 @@ create table if not exists roles (
 );
 
 -- table roles_of_users
-create table if not exists user_roles (
+create table if not exists "user_roles" (
     "user_id" integer not null,
     "role_id" int not null,
-    foreign key ("user_id") references "users"("id"),
+    foreign key ("user_id") references users ("id"),
     foreign key ("role_id") references "roles"("id"),
 
     unique (user_id)

@@ -3,7 +3,11 @@ package ru.antonio.cognition.models;
 import jakarta.persistence.*;
 
 import java.util.Set;
-
+/**
+ * Simple JavaBean Object that represents a User
+ * @author Antonio Panotti
+ * @version 1.0
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -13,7 +17,7 @@ public class User {
     private Long id;
 
     @Column(name = "username")
-    private String login;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -40,14 +44,14 @@ public class User {
     @Transient
     private String email;
 
-    public User(Long id, String login, String password) {
+    public User(Long id, String username, String password) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
-    public User(String login, String password) {
-        this.login = login;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -63,11 +67,35 @@ public class User {
     }
 
     public String getLogin() {
-        return login;
+        return username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Set<Role> getRoleSet() {
+        return roleSet;
+    }
+
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.username = login;
     }
 
     public String getPassword() {

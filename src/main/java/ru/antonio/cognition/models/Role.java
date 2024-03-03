@@ -2,6 +2,13 @@ package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
+/**
+ * Simple JavaBean Object that represents role of {@link User}
+ * @author Antonio Panotti
+ * @version 1.0
+ */
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -11,10 +18,10 @@ public class Role {
     private Long id;
 
     @Column(name = "role")
-    private String name;
+    private String role;
 
-//    @ManyToMany(mappedBy = "roles")
-//    private Set<User> users;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
     public Role() {
     }
@@ -27,21 +34,28 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" +
+                ", role='" + role + '\'' +
+                ", users=" + users +
                 '}';
     }
 }

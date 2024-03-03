@@ -16,11 +16,12 @@ services:
       - "9090:9090"
 
   db:
-    image: postgres:16-bookworm
-    container_name: cognition_db_v1
+    image: postgres:latest
+    container_name: cognitiondb
     restart: always
+    shm_size: 800mb
     volumes:
-      - ./database/postgres/cognition/v1:/var/lib/postgresql/data
+      - ./database/cognition/v1:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: toni
       POSTGRES_USER: toni

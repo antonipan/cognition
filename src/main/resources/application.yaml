@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5577/cognitiondb
-    username: antonio
-    password: antonio
+    username: toni
+    password: toni
   jpa:
     hibernate:
       ddl-auto: update
