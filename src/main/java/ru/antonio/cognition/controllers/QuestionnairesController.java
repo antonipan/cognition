@@ -11,7 +11,7 @@ import ru.antonio.cognition.services.QuestionnaireService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/questionnaires")
+@RequestMapping("/cognition/questionnaires")
 public class QuestionnairesController {
 
     private final QuestionnaireService questionnaireService;
