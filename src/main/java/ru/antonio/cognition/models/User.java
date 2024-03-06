@@ -24,7 +24,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
 //    @ManyToMany
@@ -72,11 +73,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

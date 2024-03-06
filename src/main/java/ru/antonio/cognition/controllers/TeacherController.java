@@ -12,7 +12,7 @@ import ru.antonio.cognition.services.TeacherService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cognition/teachers")
+@RequestMapping("/teachers")
 public class TeacherController {
 
     private final TeacherService teacherService;

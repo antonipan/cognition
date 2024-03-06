@@ -9,12 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -32,15 +29,16 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // TODO: 06.03.2024 Открыть конфигурацию доступа.  
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
                         -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/cognition/teachers/**", "/cognition/teachers")
-                        .hasRole("TEACH")
-                        .requestMatchers("/cognition/api", "/cognition/new-user").permitAll()
-                        .anyRequest().authenticated())
+//                        .requestMatchers("/cognition/teachers/**", "/cognition/teachers")
+//                        .hasRole("TEACH")
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().permitAll())
 
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
