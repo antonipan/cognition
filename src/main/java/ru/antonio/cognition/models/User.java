@@ -1,6 +1,7 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 /**
@@ -8,6 +9,7 @@ import java.util.Set;
  * @author Antonio Panotti
  * @version 1.0
  */
+@Component
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,7 +25,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role;
+    private Role role;
 
 //    @ManyToMany
 //    @JoinTable(name = "user_roles",
@@ -32,7 +34,7 @@ public class User {
 //    private Set<Role> roleSet;
 
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;

@@ -37,11 +37,11 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
                         -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/cognition/**").authenticated()
                         .requestMatchers("/cognition/teachers/**", "/cognition/teachers")
-                        .hasRole("teach")
+                        .hasRole("TEACH")
                         .requestMatchers("/cognition/api", "/cognition/new-user").permitAll()
-                        )
+                        .anyRequest().authenticated())
+
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
     }
