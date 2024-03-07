@@ -24,14 +24,14 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @PostMapping(value = "/roles")
+    @PostMapping()
     public Role saveRole (@RequestBody Role role) {
         return roleService.saveRole(role);
     }
 
-    @GetMapping(value = "/roles")
+    @GetMapping()
     public String getAllRole (Model model) {
         model.addAttribute("roles", roleService.getRoles());
-        return "roles";
+        return "role";
     }
 }

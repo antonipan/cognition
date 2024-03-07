@@ -35,9 +35,10 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
                         -> authorizationManagerRequestMatcherRegistry
-//                        .requestMatchers("/cognition/teachers/**", "/cognition/teachers")
-//                        .hasRole("TEACH")
+                        .requestMatchers("/teachers/**")
+                        .hasRole("teacher")
                         .requestMatchers("/**").permitAll()
+                        .requestMatchers("/admin").permitAll()
                         .anyRequest().permitAll())
 
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)

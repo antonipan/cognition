@@ -31,7 +31,7 @@ public class TeacherController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_TEACH')")
+//    @PreAuthorize("hasAuthority('ROLE_TEACH')")
     public String getAllTeachers (Model model){
         meterRegistry.counter("counter-getteach").increment();
         model.addAttribute("teachers", teacherService.getListTeachers());
@@ -61,7 +61,7 @@ public class TeacherController {
     }
 
     @GetMapping("/subjects/{subject}")
-    @PreAuthorize("hasAuthority('teacher')")
+//    @PreAuthorize("hasAuthority('teacher')")
     public String getBySubject(@PathVariable String subject, Model model) {
         model.addAttribute("teachers", teacherService.getListBySubjects(subject));
         return "teachers";

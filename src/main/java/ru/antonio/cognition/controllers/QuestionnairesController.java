@@ -21,7 +21,7 @@ public class QuestionnairesController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_STUD')")
+//    @PreAuthorize("hasAuthority('ROLE_STUD')")
     public String getAllQuestionnaires (Model model) {
         model.addAttribute("questionnaires", questionnaireService.getAllQuestionnaire());
         return "questionnaires";

@@ -15,7 +15,7 @@ import ru.antonio.cognition.services.RegistrationServiceImpl;
  * @version 1.1
  */
 @RestController
-@RequestMapping("/cognition")
+@RequestMapping
 public class RegistrationUserController {
 
     @Autowired
