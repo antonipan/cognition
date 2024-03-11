@@ -72,6 +72,17 @@ public class UserServiceImpl implements UserService {
         return userDao.findByUsername(username).orElse(null);
     }
 
+    public User getUserById (Long id) {
+        return userDao.findById(id)
+                .orElseThrow(() -> new NullPointerException("Such user is not"));
+    }
+
+    public boolean checkingNameAndPassword (String name, String password) {
+        User user = userDao.findByUsername(name)
+                .orElseThrow(() -> new NullPointerException("Such name of user no exist.. "));
+        return user.getPassword().equals(password);
+    }
+
 
 
 }

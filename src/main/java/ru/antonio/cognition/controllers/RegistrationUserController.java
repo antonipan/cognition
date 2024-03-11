@@ -1,13 +1,11 @@
 package ru.antonio.cognition.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Role;
 import ru.antonio.cognition.models.User;
-import ru.antonio.cognition.services.RoleService;
 import ru.antonio.cognition.services.RoleServiceImpl;
 import ru.antonio.cognition.services.UserServiceImpl;
 
@@ -27,8 +25,7 @@ public class RegistrationUserController {
     @Autowired
     private RoleServiceImpl roleService;
 
-    @Autowired
-    private Model model;
+    private String username;
 
     @RequestMapping(value = "/api", method = RequestMethod.GET)
     public String welcome () {
@@ -36,7 +33,7 @@ public class RegistrationUserController {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.GET)
-    public String getRegistrationForm () {
+    public String getRegistrationForm (Model model) {
         model.addAttribute("user", new User());
         return "user/registration";
     }
@@ -46,17 +43,10 @@ public class RegistrationUserController {
     public String createUser (@RequestParam("username") String name,
                               @RequestParam("password") String password,
                               @RequestParam("role") String roleName) {
-
+        username = name;
         Role role1 = roleService.getRoleByName(roleName);
         User newUser = new User(name, password, role1);
         userService.addNewUser(newUser);
-//        if(roleName.equalsIgnoreCase("teacher")) {
-//            User user = userService.getUserByName(newUser.getUsername());
-//            return "redirect:/teachers/" + user.getId();
-//        } else if (roleName.equalsIgnoreCase("student")) {
-//            User user = userService.getUserByName(newUser.getUsername());
-//            return "redirect:/auth";
-//        }
         return "redirect:/auth";
     }
 
@@ -72,12 +62,32 @@ public class RegistrationUserController {
 
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public String getAuthenticationPage () {
-//        model.addAttribute("user", )
-        Object user = model.getAttribute("user");
-        User user1 = (User) user;
-        assert user1 != null;
-        model.addAttribute("user", userService.getUserByName(user1.getUsername()));
+    public String getAuthenticationPage (Model model) {
+        model.addAttribute("user", new User());
         return "user/authentication";
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public String getAuthorization (@RequestParam("username") String name, @RequestParam("password") String password) {
+        if(userService.checkingNameAndPassword(name, password)) {
+            return branchOnRoles(name);
+        }
+        return "user/authentication";
+    }
+
+    @ModelAttribute("username")
+    public String getUsername () {
+        return username;
+    }
+
+    private String branchOnRoles (String name) {
+        User user = userService.getUserByName(name);
+        if(getRoleUser(user).equalsIgnoreCase("teacher")) {
+            return "redirect:/teachers/" + user.getId();
+        } else if (getRoleUser(user).equalsIgnoreCase("student")) {
+            return "redirect:/students/" + user.getId();
+        } else {
+            return "user/authentication";
+        }
     }
 }
