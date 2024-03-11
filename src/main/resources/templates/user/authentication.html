@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Авторизация</title>
+</head>
+    <body>
+        <form th:method="POST" th:action="@{/auth}" th:object="${user}">
+
+            <h2 th:text="${user.username}">Пожалуйста, авторизуйтесь: </h2>
+            <br/>
+
+            <label for="username">Enter username: </label>
+            <input type="text" th:field="*{username}" id="username"/>
+
+            <br/>
+
+            <label for="password">Enter password: </label>
+            <input type="text" th:field="*{password}" id="password"/>
+
+            <input type="submit" value="Confirm!">
+        </form>
+    </body>
+</html>

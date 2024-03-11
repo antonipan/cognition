@@ -1,5 +1,6 @@
 package ru.antonio.cognition.services;
 
+import org.hibernate.annotations.DialectOverride;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.models.Admin;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
         this.studentService = studentService;
     }
 
+    @Override
     public void addNewUser(User newUser) {
         // newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         newUser.setPassword(newUser.getPassword());
@@ -42,8 +44,8 @@ public class UserServiceImpl implements UserService {
         if(!roleService.checkExistOfRole(newUser.getRole())) {
             throw new RuntimeException("There is no such role in the database.");
         }
-        // Назначаем пользователю роль из списка ролей базы данных.
-        roleService.assignRoleToUser(newUser);
+//        // Назначаем пользователю роль из списка ролей базы данных.
+//        roleService.assignRoleToUser(newUser);
         // Определяем роль пользователя.
         if(newUser.getRole().getName().equalsIgnoreCase("teacher")) {
             // TODO: 09.03.2024 посмотреть преобразование типов в спринг.
@@ -69,5 +71,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByName(String username) {
         return userDao.findByUsername(username).orElse(null);
     }
+
+
 
 }

@@ -4,7 +4,6 @@ import ru.antonio.cognition.models.Role;
 import ru.antonio.cognition.models.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface RoleService {
 
@@ -12,7 +11,7 @@ public interface RoleService {
 
     List<Role> getRoles ();
 
-    User assignRoleToUser (User user);
+    User assignRoleToUser (User user, String roleName);
 
-    Set <Role> getRolesByName (String name);
+    Role getRoleByName (String name);
 }

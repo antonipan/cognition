@@ -25,10 +25,10 @@ public class TeacherController {
         this.meterRegistry = meterRegistry;
     }
 
-    @PostMapping()
-    public List<Teacher> addTeacher(@RequestBody List<Teacher> teacher){
-        return teacherService.saveAllTeacher(teacher);
-    }
+//    @PostMapping()
+//    public List<Teacher> addTeacher(@RequestBody List<Teacher> teacher){
+//        return teacherService.saveAllTeacher(teacher);
+//    }
 
     @GetMapping
 //    @PreAuthorize("hasAuthority('ROLE_TEACH')")

@@ -6,7 +6,6 @@ import ru.antonio.cognition.models.Role;
 import ru.antonio.cognition.models.User;
 import ru.antonio.cognition.repositories.RoleDao;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +25,7 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Role saveRole(Role role) {
         String nameRole = role.getName();
-        if(!getRolesByName(nameRole).isEmpty()) {
+        if(getRoleByName(nameRole) != null) {
             throw new RuntimeException("Данная роль существует. ");
         }
         return roleDao.save(role);
@@ -38,25 +37,15 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public User assignRoleToUser(User user) {
-        String roleUser = user.getRole().getName();
-        Role role;
-        if(roleUser.equalsIgnoreCase("student")) {
-            role = getRolesByName(roleUser).stream().findFirst().orElseThrow();
-            user.setRole(role);
-        } else if (roleUser.equalsIgnoreCase("teacher")) {
-            role = getRolesByName(roleUser).stream().findFirst().orElseThrow();
-            user.setRole(role);
-        } else if (roleUser.equalsIgnoreCase("admin")) {
-            role = getRolesByName(roleUser).stream().findFirst().orElseThrow();
-            user.setRole(role);
-        }
+    public User assignRoleToUser(User user, String roleName) {
+        Role role = getRoleByName(roleName);
+        user.setRole(role);
         return user;
     }
 
     @Override
-    public Set <Role> getRolesByName (String name) {
-        return new HashSet<>(roleDao.findByName(name));
+    public Role getRoleByName (String name) {
+        return roleDao.findByName(name).orElse(null);
     }
 
     /**
@@ -66,8 +55,7 @@ public class RoleServiceImpl implements RoleService{
      * @return - true - такая роль существует, false - если, роли в базе нет.
      */
     public boolean checkExistOfRole (Role role) {
-        Set <Role> setRole = getRolesByName(role.getName());
-        return !setRole.isEmpty();
+        return getRoleByName(role.getName()) != null;
     }
 
 
