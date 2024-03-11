@@ -2,43 +2,41 @@ package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Teacher extends User {
 
-    @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "subject", nullable = false)
     private String subject;
+    private Integer experience;
 
-    @Column(name = "experience", nullable = false)
-    private int experience;
+    public Teacher() {
+    }
 
-
-    public Teacher(String name, String subject, int experience) {
+    public Teacher(String username, String password, Role role, String name, String subject, Integer experience) {
+        super(username, password, role);
         this.name = name;
         this.subject = subject;
         this.experience = experience;
     }
 
-    public Teacher (){
-
+    public Teacher(String username, String password, String name, String subject, Integer experience) {
+        super(username, password);
+        this.name = name;
+        this.subject = subject;
+        this.experience = experience;
     }
 
-
-    public Long getId() {
-        return id;
+    public Teacher(String name, String subject, Integer experience) {
+        this.name = name;
+        this.subject = subject;
+        this.experience = experience;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Teacher(String username, String password, Role role) {
+        super(username, password, role);
+        this.name = username;
     }
 
     public String getName() {
@@ -57,21 +55,11 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public int getExperience() {
+    public Integer getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(Integer experience) {
         this.experience = experience;
-    }
-
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", subject='" + subject + '\'' +
-                ", experience=" + experience +
-                '}';
     }
 }

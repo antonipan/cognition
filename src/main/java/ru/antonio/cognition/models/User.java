@@ -1,17 +1,16 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
-import java.util.Set;
 /**
  * Simple JavaBean Object that represents a User
  * @author Antonio Panotti
  * @version 1.0
  */
-@Component
+
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
@@ -24,7 +23,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private Role role;
 

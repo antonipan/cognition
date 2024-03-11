@@ -2,7 +2,6 @@ package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
 
 /**
  * Simple JavaBean Object that represents role of {@link User}
@@ -15,10 +14,10 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "name", nullable = false)
+    private String name;
 
 //    @ManyToMany(mappedBy = "roles")
 //    private Set<User> users;
@@ -26,24 +25,24 @@ public class Role {
     public Role() {
     }
 
-    public Role(String role) {
-        this.role = role;
+    public Role(String name) {
+        this.name = name;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

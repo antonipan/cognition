@@ -2,12 +2,12 @@ package ru.antonio.cognition.controllers;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.services.TeacherService;
+import ru.antonio.cognition.services.TeacherServiceImpl;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
 
-    private final TeacherService teacherService;
+    private TeacherServiceImpl teacherService;
 
-    private final MeterRegistry meterRegistry;
+    private MeterRegistry meterRegistry;
 
     @Autowired
-    public TeacherController(TeacherService teacherService, MeterRegistry meterRegistry) {
+    public TeacherController(TeacherServiceImpl teacherService, MeterRegistry meterRegistry) {
         this.teacherService = teacherService;
         this.meterRegistry = meterRegistry;
     }
@@ -73,11 +73,11 @@ public class TeacherController {
         return "teacherProfile";
     }
 
-    @PutMapping("/{id}")
-    public String updateByExperience(@PathVariable Long id, @RequestBody int experience, Model model) {
-        model.addAttribute("", teacherService.updateTeacherByExperience(id, experience));
-        return "teacherProfile";
-    }
+//    @PutMapping("/{id}")
+//    public String updateByExperience(@PathVariable Long id, @RequestBody int experience, Model model) {
+//        model.addAttribute("", teacherService.updateTeacherByExperience(id, experience));
+//        return "teacherProfile";
+//    }
 
     @DeleteMapping("/{id}")
     public String deleteTeacherById (@PathVariable Long id) {

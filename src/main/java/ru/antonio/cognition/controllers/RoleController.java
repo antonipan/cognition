@@ -3,35 +3,37 @@ package ru.antonio.cognition.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Role;
-import ru.antonio.cognition.services.RoleService;
-import ru.antonio.cognition.services.RoleServiceImplement;
+import ru.antonio.cognition.services.RoleServiceImpl;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin")
 public class RoleController {
 
-    public RoleServiceImplement roleService;
+    private RoleServiceImpl roleService;
 
     @Autowired
-    public RoleController(RoleServiceImplement roleService) {
+    public RoleController(RoleServiceImpl roleService) {
         this.roleService = roleService;
     }
 
-    @PostMapping()
-    public Role saveRole (@RequestBody Role role) {
+
+    @GetMapping("/role")
+    public String getAllRole (Model model) {
+        model.addAttribute("roles", roleService.getRoles());
+        return "roles";
+    }
+
+    @PostMapping("/role")
+    @ResponseBody
+    public Role save (@RequestBody Role role) {
+
         return roleService.saveRole(role);
     }
 
-    @GetMapping()
-    public String getAllRole (Model model) {
-        model.addAttribute("roles", roleService.getRoles());
-        return "role";
-    }
+
 }

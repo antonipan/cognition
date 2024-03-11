@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.antonio.cognition.models.Teacher;
-import ru.antonio.cognition.repositories.TeachRepository;
+import ru.antonio.cognition.repositories.TeacherDao;
 import ru.antonio.cognition.services.TeacherService;
 
 
@@ -29,7 +29,7 @@ public class TeacherServiceTest {
     private TeacherService teacherService;
 
     @Mock
-    private TeachRepository teachRepository;
+    private TeacherDao teacherDao;
 
     List<Teacher> teacherList;
 
@@ -55,19 +55,19 @@ public class TeacherServiceTest {
     public void saveTeacherTest () {
         Teacher teacher = new Teacher();
         teacherService.saveTeacher(teacher);
-        Mockito.verify(teachRepository, Mockito.times(1)).save(teacher);
+        Mockito.verify(teacherDao, Mockito.times(1)).save(teacher);
     }
 
     @Test
     public void saveAllTeachers () {
         teacherService.saveAllTeacher(teacherList);
 
-        Mockito.verify(teachRepository, Mockito.times(1)).saveAll(teacherList);
+        Mockito.verify(teacherDao, Mockito.times(1)).saveAll(teacherList);
     }
 
     @Test
     public void getListTeachers () {
-        when(teachRepository.findAll()).thenReturn(teacherList);
+        when(teacherDao.findAll()).thenReturn(teacherList);
         List <Teacher> foundTeachers = teacherService.getListTeachers();
         assertEquals(3, foundTeachers.size());
 
@@ -78,7 +78,7 @@ public class TeacherServiceTest {
         Teacher teacher = new Teacher("p", "v", 5);
         List <Teacher> teachers = new ArrayList<>();
         teachers.add(teacher);
-        when(teachRepository.findByExperience(5)).thenReturn(teachers);
+        when(teacherDao.findByExperience(5)).thenReturn(teachers);
 
         List <Teacher> foundlist = teacherService.getListByExperience(5);
         assertEquals(5, foundlist.get(0).getExperience());

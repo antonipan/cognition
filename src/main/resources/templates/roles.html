@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Роли</title>
+</head>
+<body>
+    <h2>Список ролей</h2>
+    <p>Ниже </p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+        </tr>
+        <tr th:each="role: ${roles}">
+            <th th:text = "${role.id}"></th>
+            <th th:text="${role.name}"></th>
+        </tr>
+    </table>
+</body>
+</html>
