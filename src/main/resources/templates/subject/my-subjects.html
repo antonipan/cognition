@@ -13,9 +13,9 @@
                 <th>Предмет</th>
                 ,<th>Количество студентов по предмету: </th>
             </tr>
-            <tr th:each="teacher: ${teachers}">
-                <th th:text = "${teacher.id}"></th>
-                <th th:text="${teacher.name}"></th>
+            <tr th:each="subject: ${subjects}">
+                <th th:text = "${subject.id}"></th>
+                <th th:text="${subject.name}"></th>
 
             </tr>
         </table>

@@ -16,11 +16,11 @@ public class Student extends User {
     private String grade;
     private Double progress;
 
-    @ManyToMany(mappedBy = "studentSet")
-    private Set<Subject> subjectSet = new HashSet<>();
+    @ManyToMany(mappedBy = "students")
+    private Set<Subject> subjects = new HashSet<>();
 
-    @ManyToMany(mappedBy = "studentSet")
-    private Set<Teacher> teacherSet = new HashSet<>();
+    @ManyToMany(mappedBy = "students")
+    private Set<Teacher> teachers = new HashSet<>();
 
     public Student() {
     }
@@ -69,19 +69,19 @@ public class Student extends User {
         this.progress = progress;
     }
 
-    public Set<Subject> getSubjectSet() {
-        return subjectSet;
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setSubjectSet(Set<Subject> subjectSet) {
-        this.subjectSet = subjectSet;
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
-    public Set<Teacher> getTeacherSet() {
-        return teacherSet;
+    public Set<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public void setTeacherSet(Set<Teacher> teacherSet) {
-        this.teacherSet = teacherSet;
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }

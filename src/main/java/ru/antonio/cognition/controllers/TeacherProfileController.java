@@ -101,9 +101,14 @@ public class TeacherProfileController {
      * @return
      */
     @RequestMapping(value = "/my-subjects", method = RequestMethod.GET)
-    public String getTeacherSubjects (Model model) {
-//        model.addAttribute("subject", teacherService.get)
-        return "my-subject";
+    public String getTeacherSubjects (@PathVariable Long id, Model model) {
+        model.addAttribute("subjects", teacherService.getMySubject(id));
+        return "subject/my-subjects";
+    }
+
+    @RequestMapping(value = "/my-subjects", method = RequestMethod.DELETE)
+    public String deleteTeacherSubject(@RequestBody Integer id, Model model) {
+        return "";
     }
 
 }

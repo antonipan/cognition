@@ -19,7 +19,7 @@ public class Teacher extends User {
                 joinColumns = @JoinColumn(name = "teach_id"),
                 inverseJoinColumns = @JoinColumn(name = "sub_id")
     )
-    private Set<Subject> subjectSet = new HashSet<>();
+    private Set<Subject> subjects = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -27,7 +27,7 @@ public class Teacher extends User {
                 joinColumns = @JoinColumn(name = "teach_id"),
                 inverseJoinColumns = @JoinColumn(name = "stud_id")
     )
-    private Set<Student> studentSet = new HashSet<>();
+    private Set<Student> students = new HashSet<>();
 
     public Teacher() {
     }
@@ -40,7 +40,7 @@ public class Teacher extends User {
      */
     public Teacher(String name, Set <Subject> subjects, Integer experience) {
         this.name = name;
-        this.subjectSet = subjects;
+        this.subjects = subjects;
         this.experience = experience;
     }
 
@@ -65,23 +65,23 @@ public class Teacher extends User {
         this.experience = experience;
     }
 
-    public Set<Subject> getSubjectSet() {
-        return subjectSet;
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setSubjectSet(Set<Subject> subjectSet) {
-        this.subjectSet = subjectSet;
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public void addSubjectToSubjects (Subject subject) {
-        this.subjectSet.add(subject);
+        this.subjects.add(subject);
     }
 
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Set<Student> getStudents() {
+        return students;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

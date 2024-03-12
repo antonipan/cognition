@@ -13,9 +13,12 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherDao teacherDao;
+    private SubjectService subjectService;
 
     @Autowired
-    public TeacherServiceImpl (TeacherDao teacherDao) {
+    public TeacherServiceImpl (TeacherDao teacherDao,
+                               SubjectService subjectService) {
+        this.subjectService = subjectService;
         this.teacherDao = teacherDao;
     }
 
@@ -33,7 +36,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher oldTeacher = teacherDao.findById(id)
                 .orElseThrow(() -> new NullPointerException("Such newTeacher not found. "));
         oldTeacher.setExperience(newTeacher.getExperience());
-        oldTeacher.setSubjectSet(newTeacher.getSubjectSet());
+        oldTeacher.setSubjects(newTeacher.getSubjects());
         oldTeacher.setName(newTeacher.getName());
         return oldTeacher;
     }
@@ -44,6 +47,10 @@ public class TeacherServiceImpl implements TeacherService {
         oldTeacher.addSubjectToSubjects(subject);
         teacherDao.save(oldTeacher);
         return oldTeacher;
+    }
+
+    public List <Subject> getMySubject (Long id) {
+        return subjectService.getSubjectsByTeacherId(id);
     }
 
 

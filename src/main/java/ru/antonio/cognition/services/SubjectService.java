@@ -6,6 +6,7 @@ import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.repositories.SubjectDao;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,5 +33,9 @@ public class SubjectService {
 
     public Subject getSubjectById (Integer id) {
         return subjectDao.findById(id).orElseThrow(() -> new NullPointerException("Such subject not exists... "));
+    }
+
+    public List<Subject> getSubjectsByTeacherId (Long teacherId) {
+        return subjectDao.findSubjectsByTeachersId(teacherId);
     }
 }

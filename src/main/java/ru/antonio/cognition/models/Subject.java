@@ -21,11 +21,11 @@ public class Subject {
             joinColumns = @JoinColumn(name = "sub_id"),
             inverseJoinColumns = @JoinColumn(name = "stud_id")
     )
-    private Set<Student> studentSet = new HashSet<>();
+    private Set<Student> students = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "subjectSet")
-    private Set <Teacher> teacherSet = new HashSet<>();
+    @ManyToMany(mappedBy = "subjects")
+    private Set <Teacher> teachers = new HashSet<>();
 
     public Subject() {
     }
@@ -50,19 +50,19 @@ public class Subject {
         this.name = name;
     }
 
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Set<Student> getStudents() {
+        return students;
     }
 
-    public Set<Teacher> getTeacherSet() {
-        return teacherSet;
+    public Set<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
-    public void setTeacherSet(Set<Teacher> teacherSet) {
-        this.teacherSet = teacherSet;
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }
