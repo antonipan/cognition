@@ -11,11 +11,13 @@ public interface TeacherDao extends UserDao<Teacher> {
 
     List<Teacher> findByExperience(int experience);
 
-    List<Teacher> findBySubject(String subject);
 
     List<Teacher> findByOrderByName();
 
     List<Teacher> findByOrderByExperience();
 
-    List<Teacher> findByOrderBySubject();
+//    List<Teacher> findByOrderBySubject();
+//
+//    List<Teacher> findBySubject(String subject);
+
 }

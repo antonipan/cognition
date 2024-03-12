@@ -1,7 +1,11 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -12,28 +16,11 @@ public class Student extends User {
     private String grade;
     private Double progress;
 
-    public Student(String username, String password, Role role, String name, Integer school, String grade) {
-        super(username, password, role);
-        this.name = name;
-        this.school = school;
-        this.grade = grade;
-        this.progress = 0.0;
-    }
+    @ManyToMany(mappedBy = "studentSet")
+    private Set<Subject> subjectSet = new HashSet<>();
 
-    public Student(String username, String password, String name, Integer school, String grade) {
-        super(username, password);
-        this.name = name;
-        this.school = school;
-        this.grade = grade;
-        this.progress = 0.0;
-    }
-
-    public Student(String name, Integer school, String grade, Double progress) {
-        this.name = name;
-        this.school = school;
-        this.grade = grade;
-        this.progress = progress;
-    }
+    @ManyToMany(mappedBy = "studentSet")
+    private Set<Teacher> teacherSet = new HashSet<>();
 
     public Student() {
     }
@@ -41,6 +28,13 @@ public class Student extends User {
     public Student(String username, String password, Role role) {
         super(username, password, role);
         this.name = username;
+    }
+
+    public Student(String name, Integer school, String grade, Double progress) {
+        this.name = name;
+        this.school = school;
+        this.grade = grade;
+        this.progress = progress;
     }
 
     public String getName() {
@@ -73,5 +67,9 @@ public class Student extends User {
 
     public void setProgress(Double progress) {
         this.progress = progress;
+    }
+
+    public Set<Subject> getSubjectSet() {
+        return subjectSet;
     }
 }

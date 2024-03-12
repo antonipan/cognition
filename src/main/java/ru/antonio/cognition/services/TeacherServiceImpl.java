@@ -2,9 +2,9 @@ package ru.antonio.cognition.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
-import ru.antonio.cognition.models.User;
 import ru.antonio.cognition.repositories.TeacherDao;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
-    private TeacherDao teachRepository;
+    private TeacherDao teacherDao;
 
     @Autowired
     public TeacherServiceImpl (TeacherDao teacherDao) {
-        this.teachRepository = teacherDao;
+        this.teacherDao = teacherDao;
     }
 
     /**
@@ -24,10 +24,29 @@ public class TeacherServiceImpl implements TeacherService {
       * @param teacher - учитель
      * @return - учитель.
      */
-
     public Teacher saveTeacher (Teacher teacher) {
-        return teachRepository.save(teacher);
+        return teacherDao.save(teacher);
     }
+
+    @Override
+    public Teacher updateTeacher(Long id, Teacher newTeacher) {
+        Teacher oldTeacher = teacherDao.findById(id)
+                .orElseThrow(() -> new NullPointerException("Such newTeacher not found. "));
+        oldTeacher.setExperience(newTeacher.getExperience());
+        oldTeacher.setSubjectSet(newTeacher.getSubjectSet());
+        oldTeacher.setName(newTeacher.getName());
+        return oldTeacher;
+    }
+
+    public Teacher updateTeacher(Long id, Subject subject) {
+        Teacher oldTeacher = teacherDao.findById(id)
+                .orElseThrow(() -> new NullPointerException("Such newTeacher not found. "));
+        oldTeacher.addSubjectToSubjects(subject);
+        return oldTeacher;
+    }
+
+
+
 
     /**
      * Сохраняет в базу данных список учителей.
@@ -37,8 +56,9 @@ public class TeacherServiceImpl implements TeacherService {
     @TrackTeacherAction
     @Override
     public List <Teacher> saveAllTeacher (List<Teacher> teacherList) {
-        return teachRepository.saveAll(teacherList);
+        return teacherDao.saveAll(teacherList);
     }
+
 
     /**
      * Получает полный список учителей из базы данных.
@@ -46,7 +66,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @TrackTeacherAction
     public List<Teacher> getListTeachers () {
-        return teachRepository.findAll();
+        return teacherDao.findAll();
     }
 
     /**
@@ -56,18 +76,18 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @TrackTeacherAction
     public List <Teacher> getListByExperience(int experience) {
-        return teachRepository.findByExperience(experience);
+        return teacherDao.findByExperience(experience);
     }
 
-    /**
-     * Получает список учителей по учебной дисциплине (предмету)
-     * @param subject - название предмета.
-     * @return - список учителей, ведущих выбранный предмет.
-     */
-    @TrackTeacherAction
-    public List<Teacher> getListBySubjects(String subject) {
-        return teachRepository.findBySubject(subject);
-    }
+//    /**
+//     * Получает список учителей по учебной дисциплине (предмету)
+//     * @param subject - название предмета.
+//     * @return - список учителей, ведущих выбранный предмет.
+//     */
+//    @TrackTeacherAction
+//    public List<Teacher> getListBySubjects(String subject) {
+//        return teacherDao.findBySubject(subject);
+//    }
 
     /**
      * Получает одного учителя по его идентификационному номеру. Возвращает ноль,
@@ -77,7 +97,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @TrackTeacherAction
     public Teacher getTeacherById(Long id) {
-        return teachRepository.findById(id).orElseThrow();
+        return teacherDao.findById(id).orElseThrow();
     }
 
 //    /**
@@ -95,21 +115,20 @@ public class TeacherServiceImpl implements TeacherService {
 //    }
 
     public void deleteById(Long id) {
-        teachRepository.deleteById(id);
+        teacherDao.deleteById(id);
     }
 
     @TrackTeacherAction
     public List <Teacher> sortedTeachersByName () {
-        return teachRepository.findByOrderByName();
+        return teacherDao.findByOrderByName();
     }
 
     @TrackTeacherAction
     public List<Teacher> sortedTeachersByExperience() {
-        return teachRepository.findByOrderByExperience();
+        return teacherDao.findByOrderByExperience();
     }
 
-    @TrackTeacherAction
-    public List<Teacher> sortedTeachersBySubject() {
-        return teachRepository.findByOrderBySubject();
-    }
+
+
+
 }
