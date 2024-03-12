@@ -6,13 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Teacher;
-import ru.antonio.cognition.services.TeacherService;
 import ru.antonio.cognition.services.TeacherServiceImpl;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/teachers")
+@RequestMapping("/teachers/{id}")
 public class TeacherController {
 
     private TeacherServiceImpl teacherService;
@@ -25,12 +24,19 @@ public class TeacherController {
         this.meterRegistry = meterRegistry;
     }
 
-//    @PostMapping()
-//    public List<Teacher> addTeacher(@RequestBody List<Teacher> teacher){
-//        return teacherService.saveAllTeacher(teacher);
-//    }
 
-    @GetMapping
+    @GetMapping()
+    public String getByIdTeacher(@PathVariable Long id, Model model){
+        model.addAttribute("teacher", teacherService.getTeacherById(id));
+        return "teacherProfile";
+    }
+
+    @PostMapping()
+    public List<Teacher> addTeacher(@RequestBody List<Teacher> teacher){
+        return teacherService.saveAllTeacher(teacher);
+    }
+
+    @GetMapping("/getAllTeachers")
 //    @PreAuthorize("hasAuthority('ROLE_TEACH')")
     public String getAllTeachers (Model model){
         meterRegistry.counter("counter-getteach").increment();
@@ -56,7 +62,7 @@ public class TeacherController {
 
     @GetMapping("/filter/{experience}")
     public String getByExperience (Model model, @PathVariable int experience){
-         model.addAttribute("teachers", teacherService.getListByExperience(experience));
+        model.addAttribute("teachers", teacherService.getListByExperience(experience));
         return "teachers";
     }
 
@@ -67,19 +73,13 @@ public class TeacherController {
         return "teachers";
     }
 
-    @GetMapping("/{id}")
-    public String getByIdTeacher(@PathVariable Long id, Model model){
-        model.addAttribute("teacher", teacherService.getTeacherById(id));
-        return "teacherProfile";
-    }
-
 //    @PutMapping("/{id}")
 //    public String updateByExperience(@PathVariable Long id, @RequestBody int experience, Model model) {
 //        model.addAttribute("", teacherService.updateTeacherByExperience(id, experience));
 //        return "teacherProfile";
 //    }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
     public String deleteTeacherById (@PathVariable Long id) {
         teacherService.deleteById(id);
         return "Объект успешно удалён";
