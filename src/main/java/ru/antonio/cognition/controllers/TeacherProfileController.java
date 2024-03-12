@@ -43,10 +43,7 @@ public class TeacherProfileController {
         return "teacherProfile";
     }
 
-    @PostMapping()
-    public List<Teacher> addTeacher(@RequestBody List<Teacher> teacher){
-        return teacherService.saveAllTeacher(teacher);
-    }
+
 
     @PutMapping()
     public String updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher, Model model) {
@@ -61,29 +58,52 @@ public class TeacherProfileController {
     }
 
     // Работа с предметами.
+
+    /**
+     * Показывает все возможные предметы из базы данных.
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
     public String showAllSubjects (Model model) {
         model.addAttribute("subjects", subjectService.getAllSubject());
         return "subjects";
     }
 
+    /**
+     * Создаёт новый предмет
+     * @param subject
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/subjects", method = RequestMethod.POST)
     public String createSubject (@RequestBody Subject subject, Model model) {
         model.addAttribute("subjects", subjectService.createSubject(subject));
-        return "subjects";
+        return "subjects/all-subject";
     }
 
-    @RequestMapping(value = "/subjects/{subId}", method = RequestMethod.POST)
-    public String addSubjectToTeacher (@PathVariable Long id, @PathVariable Integer subId) {
-        Subject subject = subjectService.getSubjectById(subId);
-        teacherService.updateTeacher(id, subject);
+    /**
+     * Добавляет предмет учителю
+     * @param id
+     * @param subjectId
+     * @return
+     */
+    @RequestMapping(value = "/subjects/{subjectId}", method = RequestMethod.PUT)
+    public String addSubjectToTeacher (@PathVariable Long id, @PathVariable Integer subjectId, Model model) {
+        Subject subject = subjectService.getSubjectById(subjectId);
+        model.addAttribute("teacher", teacherService.updateTeacher(id, subject));
         return "teacherProfile";
     }
 
-    @RequestMapping(value = "/mysubjects", method = RequestMethod.GET)
+    /**
+     * Показывает, какие у данного учителя есть предметы.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/my-subjects", method = RequestMethod.GET)
     public String getTeacherSubjects (Model model) {
 //        model.addAttribute("subject", teacherService.get)
-        return "subjects";
+        return "my-subject";
     }
 
 }

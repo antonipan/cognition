@@ -72,4 +72,16 @@ public class Student extends User {
     public Set<Subject> getSubjectSet() {
         return subjectSet;
     }
+
+    public void setSubjectSet(Set<Subject> subjectSet) {
+        this.subjectSet = subjectSet;
+    }
+
+    public Set<Teacher> getTeacherSet() {
+        return teacherSet;
+    }
+
+    public void setTeacherSet(Set<Teacher> teacherSet) {
+        this.teacherSet = teacherSet;
+    }
 }

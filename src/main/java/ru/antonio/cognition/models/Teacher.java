@@ -16,16 +16,16 @@ public class Teacher extends User {
     @ManyToMany
     @JoinTable(
             name = "teach_of_sub",
-            joinColumns = @JoinColumn(name = "teach_id"),
-            inverseJoinColumns = @JoinColumn(name = "sub_id")
+                joinColumns = @JoinColumn(name = "teach_id"),
+                inverseJoinColumns = @JoinColumn(name = "sub_id")
     )
     private Set<Subject> subjectSet = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "teach_of_stud",
-            joinColumns = @JoinColumn(name = "teach_id"),
-            inverseJoinColumns = @JoinColumn(name = "stud_id")
+                joinColumns = @JoinColumn(name = "teach_id"),
+                inverseJoinColumns = @JoinColumn(name = "stud_id")
     )
     private Set<Student> studentSet = new HashSet<>();
 
@@ -75,5 +75,13 @@ public class Teacher extends User {
 
     public void addSubjectToSubjects (Subject subject) {
         this.subjectSet.add(subject);
+    }
+
+    public Set<Student> getStudentSet() {
+        return studentSet;
+    }
+
+    public void setStudentSet(Set<Student> studentSet) {
+        this.studentSet = studentSet;
     }
 }

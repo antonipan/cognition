@@ -42,6 +42,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher oldTeacher = teacherDao.findById(id)
                 .orElseThrow(() -> new NullPointerException("Such newTeacher not found. "));
         oldTeacher.addSubjectToSubjects(subject);
+        teacherDao.save(oldTeacher);
         return oldTeacher;
     }
 

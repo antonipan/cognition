@@ -1,5 +1,6 @@
 package ru.antonio.cognition.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ public class Subject {
     )
     private Set<Student> studentSet = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "subjectSet")
     private Set <Teacher> teacherSet = new HashSet<>();
 
@@ -50,5 +52,17 @@ public class Subject {
 
     public Set<Student> getStudentSet() {
         return studentSet;
+    }
+
+    public Set<Teacher> getTeacherSet() {
+        return teacherSet;
+    }
+
+    public void setStudentSet(Set<Student> studentSet) {
+        this.studentSet = studentSet;
+    }
+
+    public void setTeacherSet(Set<Teacher> teacherSet) {
+        this.teacherSet = teacherSet;
     }
 }
