@@ -10,8 +10,6 @@ import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.services.SubjectService;
 import ru.antonio.cognition.services.TeacherServiceImpl;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/teachers/{id}")
 public class TeacherProfileController {
@@ -71,7 +69,7 @@ public class TeacherProfileController {
     }
 
     /**
-     * Создаёт новый предмет
+     * Создаёт новый предмет.
      * @param subject
      * @param model
      * @return
@@ -102,13 +100,17 @@ public class TeacherProfileController {
      */
     @RequestMapping(value = "/my-subjects", method = RequestMethod.GET)
     public String getTeacherSubjects (@PathVariable Long id, Model model) {
-        model.addAttribute("subjects", teacherService.getMySubject(id));
+        model.addAttribute("subjects", teacherService.getMySubjects(id));
         return "subject/my-subjects";
     }
 
-    @RequestMapping(value = "/my-subjects", method = RequestMethod.DELETE)
-    public String deleteTeacherSubject(@RequestBody Integer id, Model model) {
-        return "";
+    @RequestMapping(value = "/my-subjects/{subjectId}", method = RequestMethod.DELETE)
+    public String deleteTeacherSubject(@PathVariable Long id, @PathVariable Integer subjectId, Model model) {
+        teacherService.deleteSubjectFromTeacherList(id, subjectId);
+        model.addAttribute("subjects", teacherService.getMySubjects(id));
+        return "subject/my-subjects";
     }
+
+
 
 }

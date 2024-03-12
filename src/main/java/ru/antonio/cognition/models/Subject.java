@@ -24,7 +24,7 @@ public class Subject {
     private Set<Student> students = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Teacher> teachers = new HashSet<>();
 
     public Subject() {
@@ -64,5 +64,15 @@ public class Subject {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                ", teachers=" + teachers +
+                '}';
     }
 }

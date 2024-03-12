@@ -21,7 +21,7 @@ public class Teacher extends User {
     )
     private Set<Subject> subjects = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "teach_of_stud",
                 joinColumns = @JoinColumn(name = "teach_id"),
@@ -75,6 +75,7 @@ public class Teacher extends User {
 
     public void addSubjectToSubjects (Subject subject) {
         this.subjects.add(subject);
+        subject.getTeachers().add(this);
     }
 
     public Set<Student> getStudents() {
@@ -83,5 +84,10 @@ public class Teacher extends User {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public void deleteSubject (Subject subject) {
+        this.subjects.remove(subject);
+        subject.getTeachers().remove(this);
     }
 }

@@ -8,6 +8,7 @@ import ru.antonio.cognition.aspects.TrackTeacherAction;
 import ru.antonio.cognition.repositories.TeacherDao;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -49,8 +50,17 @@ public class TeacherServiceImpl implements TeacherService {
         return oldTeacher;
     }
 
-    public List <Subject> getMySubject (Long id) {
+
+    public List <Subject> getMySubjects(Long id) {
         return subjectService.getSubjectsByTeacherId(id);
+    }
+
+    public void deleteSubjectFromTeacherList (Long teacherId, Integer subjectId) {
+        Teacher teacher = teacherDao.findById(teacherId)
+                .orElseThrow(() -> new RuntimeException("Not found"));
+        Subject subject = subjectService.getSubjectById(subjectId);
+        teacher.deleteSubject(subject);
+        teacherDao.save(teacher);
     }
 
 

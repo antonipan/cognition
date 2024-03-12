@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface SubjectDao extends JpaRepository<Subject, Integer> {
 
-    @Query("SELECT s FROM Subject s JOIN s.teachers WHERE s.id = (:id)")
-    List <Subject> getSubjectByTeacher (@Param("id") Long id);
+//    @Query("SELECT s FROM Subject s JOIN s.teachers WHERE s.id = (:id)")
+//    List <Subject> getSubjectByTeacher (@Param("id") Long id);
 
     List <Subject> findSubjectsByTeachersId(Long id);
+
 }
 
