@@ -8,6 +8,7 @@ import ru.antonio.cognition.aspects.TrackTeacherAction;
 import ru.antonio.cognition.repositories.TeacherDao;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -72,6 +73,20 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherDao.findAll();
     }
 
+    /**
+     * Получает одного учителя по его идентификационному номеру. Возвращает ноль,
+     * если учителя нет в существующий базе или неверно набран номер.
+     * @param id - запрашиваемый идентификационный номер.
+     * @return - найденный по номеру учитель.
+     */
+    public Teacher getTeacherById(Long id) {
+        return teacherDao.findById(id).orElseThrow();
+    }
+
+    public void deleteTeacherById(Long id) {
+        teacherDao.deleteById(id);
+    }
+
 
     // РАБОТА С ПРЕДМЕТАМИ
 
@@ -87,18 +102,16 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.save(teacher);
     }
 
-    /**
-     * Получает одного учителя по его идентификационному номеру. Возвращает ноль,
-     * если учителя нет в существующий базе или неверно набран номер.
-     * @param id - запрашиваемый идентификационный номер.
-     * @return - найденный по номеру учитель.
-     */
-    public Teacher getTeacherById(Long id) {
-        return teacherDao.findById(id).orElseThrow();
+    public Set <Subject> getAllSubjects() {
+        return subjectService.getAllSubject();
     }
 
-    public void deleteTeacherById(Long id) {
-        teacherDao.deleteById(id);
+    public Subject createSubject (Subject subject) {
+        return subjectService.createSubject(subject);
+    }
+
+    public Subject getSubjectById (Integer subjectId) {
+        return subjectService.getSubjectById(subjectId);
     }
 
 }

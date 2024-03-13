@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
-import ru.antonio.cognition.services.SubjectService;
 import ru.antonio.cognition.services.TeacherServiceImpl;
 
 @Controller
@@ -15,13 +14,10 @@ import ru.antonio.cognition.services.TeacherServiceImpl;
 public class TeacherProfileController {
 
     private TeacherServiceImpl teacherService;
-    private SubjectService subjectService;
 
     @Autowired
-    public TeacherProfileController(TeacherServiceImpl teacherService,
-                                    SubjectService subjectService) {
+    public TeacherProfileController(TeacherServiceImpl teacherService) {
         this.teacherService = teacherService;
-        this.subjectService = subjectService;
     }
 
 
@@ -61,7 +57,7 @@ public class TeacherProfileController {
      */
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
     public String showAllSubjects (Model model) {
-        model.addAttribute("subjects", subjectService.getAllSubject());
+        model.addAttribute("subjects", teacherService.getAllSubjects());
         return "subjects";
     }
 
@@ -73,7 +69,7 @@ public class TeacherProfileController {
      */
     @RequestMapping(value = "/subjects", method = RequestMethod.POST)
     public String createSubject (@RequestBody Subject subject, Model model) {
-        model.addAttribute("subjects", subjectService.createSubject(subject));
+        model.addAttribute("subjects", teacherService.createSubject(subject));
         return "subjects/all-subject";
     }
 
@@ -85,7 +81,7 @@ public class TeacherProfileController {
      */
     @RequestMapping(value = "/subjects/{subjectId}", method = RequestMethod.PUT)
     public String addSubjectToTeacher (@PathVariable Long id, @PathVariable Integer subjectId, Model model) {
-        Subject subject = subjectService.getSubjectById(subjectId);
+        Subject subject = teacherService.getSubjectById(subjectId);
         model.addAttribute("teacher", teacherService.updateTeacher(id, subject));
         return "teacherProfile";
     }
