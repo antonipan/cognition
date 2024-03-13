@@ -5,13 +5,38 @@
         <title>Методика</title>
     </head>
     <body>
-        <h2 th:text="${teacher.name}">Имя: </h2>
-        <p>ID: <span th:text="${teacher.id}"></span></p>
-        <p>Предмет: <span th:text="${teacher.subject}"></span></p>
-        <p>Стаж работы: <span th:text="${teacher.experience}"></span></p>
+        <h2 th:text="${student.name}">Имя: </h2>
+        <p>ID: <span th:text="${student.id}"></span></p>
+        <p>Предмет: <span th:text="${student.grade}"></span></p>
+        <p>Стаж работы: <span th:text="${student.progress}"></span></p>
         <p></p>
-        <p>Создать методику</p>
         <p>Посмотреть список моих методик</p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Предмет</th>
+                ,<th>Стаж</th>
+            </tr>
+            <tr th:each="questionnaire: ${noPass}">
+                <th th:text = "${questionnaire.id}"></th>
+                <th th:text="${questionnaire.name}"></th>
+            </tr>
+        </table>
+
+        <p>Посмотреть список моих методик</p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Предмет</th>
+                ,<th>Стаж</th>
+            </tr>
+            <tr th:each="questionnaire: ${pass}">
+                <th th:text = "${questionnaire.id}"></th>
+                <th th:text="${questionnaire.name}"></th>
+            </tr>
+        </table>
         <p>Показать список учеников</p>
         <p>Найти методику по теме</p>
         <p>Найти ученика и добавить</p>

@@ -196,8 +196,10 @@ public class TeacherServiceImpl implements TeacherService {
         return new ArrayList<>(getMyStudents(teacherId));
     }
 
-    public void setQuestForStudent(Long teacherId, Long questId, Long studentId) {
+    public void setQuestForStudent(Long questId, Long studentId) {
         Questionnaire questionnaire = questService.getQuestionnaireById(questId);
         Student student = studentService.getStudentById(studentId);
+        student.addNotPass(questionnaire);
+        studentService.saveStudent(student);
     }
 }

@@ -2,6 +2,7 @@ package ru.antonio.cognition.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.aspectj.weaver.patterns.TypePatternQuestions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class Questionnaire implements Serializable {
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
 
-    @Transient
-    private List<String> questions = new ArrayList<>();
+    @Column(name = "questions")
+    private List<Question> questions = new ArrayList<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "questionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -43,10 +44,11 @@ public class Questionnaire implements Serializable {
     @ManyToMany(mappedBy = "passable", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Student> students = new HashSet<>();
 
+
     public Questionnaire() {
     }
 
-    public Questionnaire(String name, List <String> questions) {
+    public Questionnaire(String name, List <Question> questions) {
         this.name = name;
         this.questions.addAll(questions);
         this.quantityQuestions = questions.size();
@@ -87,11 +89,11 @@ public class Questionnaire implements Serializable {
 
     // WORK WITH COLLECTION OF QUESTIONS
 
-    public List<String> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<String> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
@@ -119,5 +121,13 @@ public class Questionnaire implements Serializable {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public void addQuestion (Question question) {
+        this.questions.add(question);
+    }
+
+    public void deleteQuestion(int number) {
+        this.questions.remove(number);
     }
 }

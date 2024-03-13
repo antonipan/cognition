@@ -152,9 +152,12 @@ public class TeacherProfileController {
     }
 
     @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.GET)
-    public String showProfileQuestionnaire (@PathVariable Long questId,
+    public String showProfileQuestionnaire (@PathVariable Long teacherId,
+                                            @PathVariable Long questId,
                                             Model model) {
-        model.addAttribute("questionnaire", teacherService.getQuestionnaireById(questId));
+        model.addAttribute("questionnaire",
+                teacherService.getQuestionnaireById(questId));
+        model.addAttribute("teacher", teacherService.getTeacherById(teacherId));
         return "questionnaire/questionnaireProfile";
     }
 
@@ -193,9 +196,13 @@ public class TeacherProfileController {
     @RequestMapping(value = "/my-quest/{questId}/{studentId}", method = RequestMethod.POST)
     public String giveToStudentMyMethodic(@PathVariable Long teacherId,
                                           @PathVariable Long questId,
-                                          @PathVariable Long studentId) {
-        teacherService.setQuestForStudent(teacherId, questId, studentId);
-        return "";
+                                          @PathVariable Long studentId,
+                                          Model model) {
+        teacherService.setQuestForStudent(questId, studentId);
+        model.addAttribute("questionnaire",
+                teacherService.getQuestionnaireById(questId));
+        model.addAttribute("teacher", teacherService.getTeacherById(teacherId));
+        return "questionnaire/my-questionnaires";
     }
 
     @RequestMapping(value = "/my-students/{studentId}", method = RequestMethod.DELETE)
