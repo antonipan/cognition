@@ -19,7 +19,6 @@
     <tr th:each="questionnaire: ${questionnaires}">
         <th th:text = "${questionnaire.id}"></th>
         <th><a th:href = "@{/questionnaires/{id}(id=${questionnaire.id})}" th:text="${questionnaire.name}"></a></th>
-        <th th:text = "${questionnaire.author.name}"></th>
     </tr>
 </table>
 

@@ -14,15 +14,11 @@ import java.util.Set;
 public class Questionnaire {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "author_id", columnDefinition = "39")
-    private Teacher author;
 
     @Column(name = "quantity_questions")
     private int quantityQuestions;
@@ -30,11 +26,14 @@ public class Questionnaire {
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
 
+    @ManyToOne
+    private Subject subject;
+
     @Transient
     private List<String> questions = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "workQuestionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "questionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @ManyToMany(mappedBy = "workQuestionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Teacher> teachers = new HashSet<>();
 
@@ -63,14 +62,6 @@ public class Questionnaire {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Teacher getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Teacher author) {
-        this.author = author;
     }
 
     public int getQuantityQuestions() {

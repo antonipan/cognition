@@ -32,7 +32,13 @@ public class QuestionnaireService {
         return questionnaireDao.findById(id).orElse(null);
     }
 
-    public List<Questionnaire> getQuestionnaireByTeacherId(Long teacherId) {
-        return questionnaireDao.findAllQuestionnairesByTeacherId(teacherId);
+    public List<Questionnaire> getQuestionnairesByTeacherId(Long teacherId) {
+        return questionnaireDao.findQuestionnairesByTeachersId(teacherId);
     }
+
+    public List<Questionnaire> getQuestByName(String questName) {
+        return questionnaireDao.findByName(questName);
+    }
+
+
 }

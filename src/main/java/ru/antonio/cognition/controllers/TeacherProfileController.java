@@ -86,7 +86,8 @@ public class TeacherProfileController {
                                        @PathVariable Integer subjectId,
                                        Model model) {
         Subject subject = teacherService.getSubjectById(subjectId);
-        model.addAttribute("teacher", teacherService.updateTeacher(teacherId, subject));
+        model.addAttribute("teacher",
+                teacherService.updateTeacher(teacherId, subject));
         return "teacher/teacherProfile";
     }
 
@@ -123,9 +124,9 @@ public class TeacherProfileController {
     public String createQuestToMyList (@PathVariable Long teacherId,
                                      @RequestBody Questionnaire questionnaire,
                                        Model model) {
-
-
-        return "questionnaire/my-questionnaires";
+        model.addAttribute("questionnaire",
+                teacherService.createQuestionnaire(questionnaire));
+        return "questionnaire/questionnaireProfile";
     }
 
     @RequestMapping(value = "/my-quest/{questId}", method = RequestMethod.PUT)
@@ -141,17 +142,21 @@ public class TeacherProfileController {
                                          @RequestParam Long questId,
                                          Model model) {
         model.addAttribute("questionnaires", teacherService.deleteQuestFromMyList(teacherId, questId));
+        model.addAttribute("teacher", teacherService.getTeacherById(teacherId));
         return "questionnaire/my-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest", method = RequestMethod.GET)
-    public String showAllQuestionnaire () {
-        return "";
+    public String showAllQuestionnaire (Model model) {
+        model.addAttribute("questionnaires", teacherService.getAllQuestionnaire());
+        return "questionnaire/all-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.GET)
-    public String showProfileQuestionnaire (@PathVariable Long questId) {
-        return "";
+    public String showProfileQuestionnaire (@PathVariable Long questId,
+                                            Model model) {
+        model.addAttribute("questionnaire", teacherService.getQuestionnaireById(questId));
+        return "questionnaire/questionnaireProfile";
     }
 
     @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.PUT)
@@ -159,43 +164,32 @@ public class TeacherProfileController {
                                      @PathVariable Long questId,
                                      Model model) {
         Questionnaire questionnaire = teacherService.getQuestionnaireById(questId);
-        model.addAttribute("questionnaires", teacherService.updateTeacher(teacherId, questionnaire));
+        model.addAttribute("questionnaires",
+                teacherService.updateTeacher(teacherId, questionnaire));
+        model.addAttribute("teacher",
+                teacherService.getTeacherById(teacherId));
         return "questionnaire/my-questionnaires";
     }
 
-    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.DELETE)
-    public String deleteQuestionnaireFromApp (@PathVariable Long questId) {
-        return "";
-    }
-
     @RequestMapping(value = "/all-quest/find/byName", method = RequestMethod.GET)
-    public String findQuestByName (@RequestBody String questName) {
-        return "";
-    }
-
-    @RequestMapping(value = "/all-quest/find/bySubject", method = RequestMethod.GET)
-    public String findQuestBySubject (@RequestBody String subject) {
-        return "";
-    }
-
-    @RequestMapping(value = "/all-quest/find/byAuthor", method = RequestMethod.GET)
-    public String findQuestByAuthor (@RequestBody String author) {
-        return "";
+    public String findQuestByName (@RequestBody String questName, Model model) {
+        model.addAttribute("questionnaires", teacherService.findQuestionnaire(questName))
+        return "questionnaire/all-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest/sort/popul", method = RequestMethod.GET)
     public String sortedQuestionnaireByPopular() {
-        return "";
+        return "questionnaire/all-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest/sort/author", method = RequestMethod.GET)
     public String sortedQuestionnaireByAuthor() {
-        return "";
+        return "questionnaire/all-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest/sort/subject", method = RequestMethod.GET)
     public String sortedQuestionnaireBySubject () {
-        return "";
+        return "questionnaire/all-questionnaires";
     }
 
     //РАБОТА СО СТУДЕНТАМИ.

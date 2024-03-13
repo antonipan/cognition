@@ -12,12 +12,10 @@
         <tr>
             <th>ID</th>
             <th>Название</th>
-            <th>Автор</th>
         </tr>
         <tr th:each="questionnaire: ${questionnaires}">
             <th th:text = "${questionnaire.id}"></th>
             <th><a th:href = "@{/questionnaires/{id}(id=${questionnaire.id})}" th:text="${questionnaire.name}"></a></th>
-            <th th:text = "${questionnaire.author}"></th>
         </tr>
     </table>
 

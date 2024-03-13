@@ -58,9 +58,9 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Questionnaire> updateTeacher(Long teacherId, Questionnaire questionnaire) {
         Teacher oldTeacher = teacherDao.findById(teacherId)
                 .orElseThrow(() -> new NullPointerException("Not found"));
-        oldTeacher.addQuestionnaires(questionnaire);
+        oldTeacher.addQuestToAllQuestionnaires(questionnaire);
         teacherDao.save(oldTeacher);
-        return questService.getQuestionnaireByTeacherId(teacherId);
+        return questService.getQuestionnairesByTeacherId(teacherId);
     }
 
     /**
@@ -123,20 +123,14 @@ public class TeacherServiceImpl implements TeacherService {
         return subjectService.getSubjectById(subjectId);
     }
 
-    public void saveMyQuestionnaire(Long teacherId, Questionnaire questionnaire) {
-        Teacher teacher = getTeacherById(teacherId);
-        teacher.addMyQuestionnaires(questionnaire);
-        teacher.addQuestToAllQuestionnaires(questionnaire);
-        saveTeacher(teacher);
+    public Questionnaire createQuestionnaire (Questionnaire questionnaire) {
+        return questService.saveOneQuestionnaire(questionnaire);
     }
 
-    public void saveMyQuestionnaire(Questionnaire questionnaire) {
-
-    }
 
 
     public List<Questionnaire> getMyQuestionnaires(Long teacherId) {
-        return questService.getQuestionnaireByTeacherId(teacherId);
+        return questService.getQuestionnairesByTeacherId(teacherId);
     }
 
 
@@ -149,7 +143,7 @@ public class TeacherServiceImpl implements TeacherService {
         oldQuest.setQuestions(questionnaire.getQuestions());
         oldQuest.setName(questionnaire.getName());
         oldQuest.setShareCorrectAnswers(questionnaire.getShareCorrectAnswers());
-        saveMyQuestionnaire(oldQuest);
+        questService.saveOneQuestionnaire(oldQuest);
         return oldQuest;
     }
 
@@ -159,8 +153,15 @@ public class TeacherServiceImpl implements TeacherService {
         Questionnaire questionnaire = questService.getQuestionnaireById(questId);
         teacher.deleteQuestFromMyQuests(questionnaire);
         teacherDao.save(teacher);
-        return questService.getQuestionnaireByTeacherId(teacherId);
+        return questService.getQuestionnairesByTeacherId(teacherId);
     }
 
 
+    public List<Questionnaire> getAllQuestionnaire() {
+        return questService.getAllQuestionnaire();
+    }
+
+    public List<Questionnaire> findQuestionnaire(String questName) {
+        return questService.getQuestByName(questName);
+    }
 }

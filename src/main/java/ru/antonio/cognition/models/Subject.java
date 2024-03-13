@@ -27,6 +27,9 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Teacher> teachers = new HashSet<>();
 
+    @OneToMany
+    private Set<Questionnaire> questionnaires = new HashSet<>();
+
     public Subject() {
     }
 
@@ -74,5 +77,21 @@ public class Subject {
                 ", students=" + students +
                 ", teachers=" + teachers +
                 '}';
+    }
+
+    public Set<Questionnaire> getQuestionnaires() {
+        return questionnaires;
+    }
+
+    public void setQuestionnaires(Set<Questionnaire> questionnaires) {
+        this.questionnaires = questionnaires;
+    }
+
+    public void addQuestToSubjects (Questionnaire questionnaire) {
+        this.questionnaires.add(questionnaire);
+    }
+
+    public void deleteQuestToSubjects(Questionnaire questionnaire){
+        this.questionnaires.remove(questionnaire);
     }
 }

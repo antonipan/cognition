@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface QuestionnaireDao extends JpaRepository<Questionnaire, Long> {
 
-    List<Questionnaire> findAllQuestionnairesByTeacherId(Long id);
+    List<Questionnaire> findQuestionnairesByTeachersId(Long teacherId);
+
+    List<Questionnaire> findByName(String questName);
+
 }
