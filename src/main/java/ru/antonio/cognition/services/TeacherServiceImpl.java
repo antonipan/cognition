@@ -123,14 +123,22 @@ public class TeacherServiceImpl implements TeacherService {
         return subjectService.getSubjectById(subjectId);
     }
 
+    public void saveMyQuestionnaire(Long teacherId, Questionnaire questionnaire) {
+        Teacher teacher = getTeacherById(teacherId);
+        teacher.addMyQuestionnaires(questionnaire);
+        teacher.addQuestToAllQuestionnaires(questionnaire);
+        saveTeacher(teacher);
+    }
+
     public void saveMyQuestionnaire(Questionnaire questionnaire) {
-        questService.saveOneQuestionnaire(questionnaire);
+
     }
 
 
     public List<Questionnaire> getMyQuestionnaires(Long teacherId) {
         return questService.getQuestionnaireByTeacherId(teacherId);
     }
+
 
     public Questionnaire getQuestionnaireById(Long questId) {
         return questService.getQuestionnaireById(questId);

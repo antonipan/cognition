@@ -9,6 +9,8 @@ import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.services.TeacherServiceImpl;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/teachers/{teacherId}")
 public class TeacherProfileController {
@@ -118,13 +120,12 @@ public class TeacherProfileController {
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.POST)
-    public Questionnaire createQuestToMyList (@PathVariable Long teacherId,
-                                       @RequestBody Questionnaire questionnaire
-                                       ) {
-        Teacher teacher = teacherService.getTeacherById(teacherId);
-        questionnaire.setAuthor(teacher);
-        teacherService.saveMyQuestionnaire(questionnaire);
-        return questionnaire;
+    public String createQuestToMyList (@PathVariable Long teacherId,
+                                     @RequestBody Questionnaire questionnaire,
+                                       Model model) {
+
+
+        return "questionnaire/my-questionnaires";
     }
 
     @RequestMapping(value = "/my-quest/{questId}", method = RequestMethod.PUT)

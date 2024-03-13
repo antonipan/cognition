@@ -33,6 +33,6 @@ public class QuestionnaireService {
     }
 
     public List<Questionnaire> getQuestionnaireByTeacherId(Long teacherId) {
-        return questionnaireDao.findWorkQuestionnairesByAuthorId(teacherId);
+        return questionnaireDao.findAllQuestionnairesByTeacherId(teacherId);
     }
 }

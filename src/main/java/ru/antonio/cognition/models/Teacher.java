@@ -99,7 +99,7 @@ public class Teacher extends User {
 
     // WORK WITH TO COLLECTION OF QUESTIONNAIRES
 
-    public void addQuestionnaires (Questionnaire questionnaire) {
+    public void addMyQuestionnaires (Questionnaire questionnaire) {
         this.myQuestionnaires.add(questionnaire);
     }
 
@@ -112,7 +112,7 @@ public class Teacher extends User {
         this.allQuestionnaires = allQuestionnaires;
     }
 
-    public void addQuestToQuests (Questionnaire questionnaire) {
+    public void addQuestToAllQuestionnaires (Questionnaire questionnaire) {
         this.allQuestionnaires.add(questionnaire);
         questionnaire.getTeachers().add(this);
     }
