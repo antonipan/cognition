@@ -22,9 +22,21 @@ public class Student extends User {
     @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Teacher> teachers = new HashSet<>();
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "stud_not_pass",
+            joinColumns = @JoinColumn(name = "stud_id"),
+            inverseJoinColumns = @JoinColumn(name = "quest_id")
+    )
     private Set<Questionnaire> notPassable = new HashSet<>();
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "stud_pass",
+            joinColumns = @JoinColumn(name = "stud_id"),
+            inverseJoinColumns = @JoinColumn(name = "quest_id")
+    )
     private Set<Questionnaire> passable = new HashSet<>();
 
     public Student() {
@@ -88,6 +100,34 @@ public class Student extends User {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public Set<Questionnaire> getNotPassable() {
+        return notPassable;
+    }
+
+    public void setNotPassable(Set<Questionnaire> notPassable) {
+        this.notPassable = notPassable;
+    }
+
+    public Set<Questionnaire> getPassable() {
+        return passable;
+    }
+
+    public void setPassable(Set<Questionnaire> passable) {
+        this.passable = passable;
+    }
+
+    public void addNotPass(Questionnaire questionnaire) {
+        this.notPassable.add(questionnaire);
+        questionnaire.getNotStudents().add(this);
+    }
+
+    public void deleteNotPassAndAddPass(Questionnaire questionnaire) {
+        this.notPassable.remove(questionnaire);
+        questionnaire.getNotStudents().remove(this);
+        this.passable.add(questionnaire);
+        questionnaire.getStudents().add(this);
     }
 
 }

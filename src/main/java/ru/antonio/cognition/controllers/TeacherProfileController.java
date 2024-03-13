@@ -194,7 +194,7 @@ public class TeacherProfileController {
     public String giveToStudentMyMethodic(@PathVariable Long teacherId,
                                           @PathVariable Long questId,
                                           @PathVariable Long studentId) {
-
+        teacherService.setQuestForStudent(teacherId, questId, studentId);
         return "";
     }
 

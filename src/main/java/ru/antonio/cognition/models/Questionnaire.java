@@ -35,6 +35,13 @@ public class Questionnaire implements Serializable {
 //    @ManyToMany(mappedBy = "workQuestionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Teacher> teachers = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "notPassable", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set <Student> notStudents = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "passable", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set <Student> students = new HashSet<>();
 
     public Questionnaire() {
     }
@@ -96,5 +103,21 @@ public class Questionnaire implements Serializable {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public Set<Student> getNotStudents() {
+        return notStudents;
+    }
+
+    public void setNotStudents(Set<Student> notStudents) {
+        this.notStudents = notStudents;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

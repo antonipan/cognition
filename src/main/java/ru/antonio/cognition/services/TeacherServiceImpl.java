@@ -10,7 +10,6 @@ import ru.antonio.cognition.aspects.TrackTeacherAction;
 import ru.antonio.cognition.repositories.TeacherDao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -195,5 +194,10 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.deleteStudentFromTeacher(student);
         teacherDao.save(teacher);
         return new ArrayList<>(getMyStudents(teacherId));
+    }
+
+    public void setQuestForStudent(Long teacherId, Long questId, Long studentId) {
+        Questionnaire questionnaire = questService.getQuestionnaireById(questId);
+        Student student = studentService.getStudentById(studentId);
     }
 }
