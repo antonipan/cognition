@@ -1,8 +1,7 @@
 package ru.antonio.cognition.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +18,8 @@ public class Student extends User {
     @ManyToMany(mappedBy = "students")
     private Set<Subject> subjects = new HashSet<>();
 
-    @ManyToMany(mappedBy = "students")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Teacher> teachers = new HashSet<>();
 
     public Student() {

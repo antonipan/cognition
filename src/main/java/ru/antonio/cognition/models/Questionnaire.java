@@ -3,6 +3,7 @@ package ru.antonio.cognition.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "questionnaires")
-public class Questionnaire {
+public class Questionnaire implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +26,6 @@ public class Questionnaire {
 
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
-
-    @ManyToOne
-    private Subject subject;
 
     @Transient
     private List<String> questions = new ArrayList<>();

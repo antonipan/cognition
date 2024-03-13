@@ -3,6 +3,7 @@ package ru.antonio.cognition.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.models.Questionnaire;
+import ru.antonio.cognition.models.Student;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
@@ -10,6 +11,7 @@ import ru.antonio.cognition.repositories.TeacherDao;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -17,14 +19,17 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherDao teacherDao;
     private SubjectService subjectService;
     private QuestionnaireService questService;
+    private StudentServiceImpl studentService;
 
     @Autowired
     public TeacherServiceImpl (TeacherDao teacherDao,
                                SubjectService subjectService,
-                               QuestionnaireService questService) {
+                               QuestionnaireService questService,
+                               StudentServiceImpl studentService) {
         this.subjectService = subjectService;
         this.teacherDao = teacherDao;
         this.questService = questService;
+        this.studentService = studentService;
     }
 
     //РАБОТА С УЧИТЕЛЯМИ
@@ -161,7 +166,12 @@ public class TeacherServiceImpl implements TeacherService {
         return questService.getAllQuestionnaire();
     }
 
-    public List<Questionnaire> findQuestionnaire(String questName) {
-        return questService.getQuestByName(questName);
+    public Set<Questionnaire> findQuestByName(String questName) {
+        List<Questionnaire> quest =  questService.getAllQuestionnaire();
+        return quest.stream().filter(q -> q.getName().contains(questName)).collect(Collectors.toSet());
+    }
+
+    public Set<Student> getMyStudents(Long teacherId) {
+        return studentService.getStudentsByTeacherId(teacherId);
     }
 }

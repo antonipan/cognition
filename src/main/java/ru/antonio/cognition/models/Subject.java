@@ -3,12 +3,13 @@ package ru.antonio.cognition.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "subjects")
-public class Subject {
+public class Subject implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +28,7 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set <Teacher> teachers = new HashSet<>();
 
-    @OneToMany
-    private Set<Questionnaire> questionnaires = new HashSet<>();
+
 
     public Subject() {
     }
@@ -77,21 +77,5 @@ public class Subject {
                 ", students=" + students +
                 ", teachers=" + teachers +
                 '}';
-    }
-
-    public Set<Questionnaire> getQuestionnaires() {
-        return questionnaires;
-    }
-
-    public void setQuestionnaires(Set<Questionnaire> questionnaires) {
-        this.questionnaires = questionnaires;
-    }
-
-    public void addQuestToSubjects (Questionnaire questionnaire) {
-        this.questionnaires.add(questionnaire);
-    }
-
-    public void deleteQuestToSubjects(Questionnaire questionnaire){
-        this.questionnaires.remove(questionnaire);
     }
 }

@@ -1,6 +1,7 @@
 package ru.antonio.cognition.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +9,6 @@ import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.services.TeacherServiceImpl;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/teachers/{teacherId}")
@@ -171,32 +170,18 @@ public class TeacherProfileController {
         return "questionnaire/my-questionnaires";
     }
 
-    @RequestMapping(value = "/all-quest/find/byName", method = RequestMethod.GET)
-    public String findQuestByName (@RequestBody String questName, Model model) {
-        model.addAttribute("questionnaires", teacherService.findQuestionnaire(questName))
-        return "questionnaire/all-questionnaires";
-    }
-
-    @RequestMapping(value = "/all-quest/sort/popul", method = RequestMethod.GET)
-    public String sortedQuestionnaireByPopular() {
-        return "questionnaire/all-questionnaires";
-    }
-
-    @RequestMapping(value = "/all-quest/sort/author", method = RequestMethod.GET)
-    public String sortedQuestionnaireByAuthor() {
-        return "questionnaire/all-questionnaires";
-    }
-
-    @RequestMapping(value = "/all-quest/sort/subject", method = RequestMethod.GET)
-    public String sortedQuestionnaireBySubject () {
+    @RequestMapping(value = "/all-quest/find/{questName}", method = RequestMethod.GET)
+    public String findQuestByName (@PathVariable String questName, Model model) {
+        model.addAttribute("questionnaires", teacherService.findQuestByName(questName));
         return "questionnaire/all-questionnaires";
     }
 
     //РАБОТА СО СТУДЕНТАМИ.
 
     @RequestMapping(value = "/my-students", method = RequestMethod.GET)
-    public String showMyStudents (@PathVariable Long teacherId) {
-        return "";
+    public String showMyStudents (@PathVariable Long teacherId, Model model) {
+        model.addAttribute("students", teacherService.getMyStudents(teacherId));
+        return "student/my-students";
     }
 
     @RequestMapping(value = "/my-students/{studentId}", method = RequestMethod.GET)

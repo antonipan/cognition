@@ -123,4 +123,14 @@ public class Teacher extends User {
     public void setStudents(Set<Student> students) {
         this.students = students;
     }
+
+    public void addStudentToTeacher (Student student) {
+        this.students.add(student);
+        student.getTeachers().add(this);
+    }
+
+    public void deleteStudentFromTeacher (Student student) {
+        this.subjects.remove(student);
+        student.getTeachers().remove(this);
+    }
 }
