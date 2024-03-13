@@ -1,10 +1,8 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
-import ru.antonio.cognition.models.questions.Question;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -29,22 +27,16 @@ public class Questionnaire {
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
 
-    @OneToMany(mappedBy = "questionId")
-    private List<Question> questions = new ArrayList<>();
-
-
-    public Questionnaire(String name, List <Question> questions) {
-        this.name = name;
-        this.questions.addAll(questions);
-        this.shareCorrectAnswers = setShareCorrectAnswers();
-        this.quantityQuestions = questions.size();
-    }
-
-    public Questionnaire(String name) {
-        this.name = name;
-    }
+    @Transient
+    private List<String> questions = new ArrayList<>();
 
     public Questionnaire() {
+    }
+
+    public Questionnaire(String name, List <String> questions) {
+        this.name = name;
+        this.questions.addAll(questions);
+        this.quantityQuestions = questions.size();
     }
 
     public Long getId() {
@@ -87,43 +79,11 @@ public class Questionnaire {
         this.shareCorrectAnswers = shareCorrectAnswers;
     }
 
-    public double setShareCorrectAnswers() {
-        return weightMethodics(this.questions)*0.5;
-    }
-
-    public List<Question> getQuestions() {
+    public List<String> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<String> questions) {
         this.questions = questions;
     }
-
-    public void addQuestion (Question question) {
-        this.questions.add(question);
-        this.shareCorrectAnswers = setShareCorrectAnswers();
-        this.quantityQuestions = this.questions.size();
-    }
-
-    public void deleteQuestion (Question question) {
-        this.questions.remove(question);
-        this.shareCorrectAnswers = setShareCorrectAnswers();
-        this.quantityQuestions = this.questions.size();
-    }
-
-
-    public List<Question> mixedQuestions () {
-        Collections.shuffle(this.questions);
-        int count = 0;
-        for (Question q: questions
-             ) {
-            q.setNumberQuestion(count);
-        }
-        return this.questions;
-    }
-
-    public double weightMethodics (List <Question> questions) {
-        return questions.stream().mapToDouble(Question::getWeightAnswer).sum();
-    }
-
 }
