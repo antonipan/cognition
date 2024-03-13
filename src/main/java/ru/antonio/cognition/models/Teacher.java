@@ -29,6 +29,9 @@ public class Teacher extends User {
     )
     private Set<Student> students = new HashSet<>();
 
+    @OneToMany(mappedBy = "author")
+    private Set<Questionnaire> questionnaires = new HashSet<>();
+
     public Teacher() {
     }
 
@@ -65,6 +68,8 @@ public class Teacher extends User {
         this.experience = experience;
     }
 
+    // WORK WITH TO COLLECTION OF SUBJECTS
+
     public Set<Subject> getSubjects() {
         return subjects;
     }
@@ -78,16 +83,23 @@ public class Teacher extends User {
         subject.getTeachers().add(this);
     }
 
+    public void deleteSubject (Subject subject) {
+        this.subjects.remove(subject);
+        subject.getTeachers().remove(this);
+    }
+
+    // WORK WITH TO COLLECTION OF QUESTIONNAIRES
+
+    public void addQuestionnaires (Questionnaire questionnaire) {
+        this.questionnaires.add(questionnaire);
+    }
+
+
     public Set<Student> getStudents() {
         return students;
     }
 
     public void setStudents(Set<Student> students) {
         this.students = students;
-    }
-
-    public void deleteSubject (Subject subject) {
-        this.subjects.remove(subject);
-        subject.getTeachers().remove(this);
     }
 }

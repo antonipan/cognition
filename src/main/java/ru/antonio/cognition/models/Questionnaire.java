@@ -1,6 +1,12 @@
 package ru.antonio.cognition.models;
 
 import jakarta.persistence.*;
+import ru.antonio.cognition.models.questions.Question;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 @Entity
 @Table(name = "questionnaires")
@@ -13,8 +19,9 @@ public class Questionnaire {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "author", nullable = false)
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private Teacher author;
 
     @Column(name = "quantity_questions", nullable = true)
     private int quantityQuestions;
@@ -22,18 +29,17 @@ public class Questionnaire {
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
 
+    @Column(name = "questions")
+    private List<Question> questions = new ArrayList<>();
 
-    public Questionnaire(String name, String author, int quantityQuestions, double shareCorrectAnswers) {
+
+    public Questionnaire(String name, List <Question> questions) {
         this.name = name;
-        this.author = author;
-        this.quantityQuestions = quantityQuestions;
-        this.shareCorrectAnswers = shareCorrectAnswers;
+        this.questions.addAll(questions);
     }
 
-    public Questionnaire(String name, String author, int quantityQuestions) {
+    public Questionnaire(String name) {
         this.name = name;
-        this.author = author;
-        this.quantityQuestions = quantityQuestions;
     }
 
     public Questionnaire() {
@@ -55,11 +61,11 @@ public class Questionnaire {
         this.name = name;
     }
 
-    public String getAuthor() {
+    public Teacher getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Teacher author) {
         this.author = author;
     }
 
@@ -78,4 +84,28 @@ public class Questionnaire {
     public void setShareCorrectAnswers(double shareCorrectAnswers) {
         this.shareCorrectAnswers = shareCorrectAnswers;
     }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void addQuestion (Question question) {
+        this.questions.add(question);
+    }
+
+    public void deleteQuestion (Question question) {
+        this.questions.remove(question);
+    }
+
+    public List<Question> mixedQuestions () {
+        Collections.shuffle(this.questions);
+        return this.questions;
+    }
+
+
+
 }

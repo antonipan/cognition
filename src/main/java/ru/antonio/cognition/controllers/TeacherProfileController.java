@@ -111,6 +111,8 @@ public class TeacherProfileController {
         return "subject/my-subjects";
     }
 
+    // WORK WITH QUESTIONNAIRES
+
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.GET)
     public String showMyQuestionnaires (@PathVariable Long teacherId, Model model) {
@@ -118,7 +120,7 @@ public class TeacherProfileController {
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.POST)
-    public String createQuestToMyList (@PathVariable Long teacherId, Questionnaire questionnaire) {
+    public String createQuestToMyList (@PathVariable Long teacherId, @RequestBody Questionnaire questionnaire) {
         return "";
     }
 
