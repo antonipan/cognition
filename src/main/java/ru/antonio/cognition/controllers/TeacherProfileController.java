@@ -1,6 +1,5 @@
 package ru.antonio.cognition.controllers;
 
-import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +16,12 @@ public class TeacherProfileController {
 
     private TeacherServiceImpl teacherService;
     private SubjectService subjectService;
-    private MeterRegistry meterRegistry;
 
     @Autowired
     public TeacherProfileController(TeacherServiceImpl teacherService,
-                                    SubjectService subjectService,
-                                    MeterRegistry meterRegistry) {
+                                    SubjectService subjectService) {
         this.teacherService = teacherService;
         this.subjectService = subjectService;
-        this.meterRegistry = meterRegistry;
     }
 
 
@@ -52,7 +48,7 @@ public class TeacherProfileController {
 
     @DeleteMapping()
     public String deleteTeacherById (@PathVariable Long id) {
-        teacherService.deleteById(id);
+        teacherService.deleteTeacherById(id);
         return "redirect:/reg";
     }
 
