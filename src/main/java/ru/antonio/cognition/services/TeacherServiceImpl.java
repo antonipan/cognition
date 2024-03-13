@@ -2,6 +2,7 @@ package ru.antonio.cognition.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
@@ -15,12 +16,15 @@ public class TeacherServiceImpl implements TeacherService {
 
     private TeacherDao teacherDao;
     private SubjectService subjectService;
+    private QuestionnaireService questService;
 
     @Autowired
     public TeacherServiceImpl (TeacherDao teacherDao,
-                               SubjectService subjectService) {
+                               SubjectService subjectService,
+                               QuestionnaireService questService) {
         this.subjectService = subjectService;
         this.teacherDao = teacherDao;
+        this.questService = questService;
     }
 
     /**
@@ -63,7 +67,9 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.save(teacher);
     }
 
+    //РАБОТА С МЕТОДИКАМИ
 
+    public
 
 
     /**
