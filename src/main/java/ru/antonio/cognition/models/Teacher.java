@@ -130,7 +130,7 @@ public class Teacher extends User {
     }
 
     public void deleteStudentFromTeacher (Student student) {
-        this.subjects.remove(student);
+        this.students.remove(student);
         student.getTeachers().remove(this);
     }
 }

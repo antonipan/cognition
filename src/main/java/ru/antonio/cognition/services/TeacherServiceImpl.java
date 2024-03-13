@@ -9,6 +9,8 @@ import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
 import ru.antonio.cognition.repositories.TeacherDao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -173,5 +175,25 @@ public class TeacherServiceImpl implements TeacherService {
 
     public Set<Student> getMyStudents(Long teacherId) {
         return studentService.getStudentsByTeacherId(teacherId);
+    }
+
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    public Object addStudentToList(Long teacherId, String name) {
+        Teacher oldTeacher = getTeacherById(teacherId);
+        Student student = studentService.getStudentByName(name);
+        oldTeacher.addStudentToTeacher(student);
+        teacherDao.save(oldTeacher);
+        return getMyStudents(teacherId);
+    }
+
+    public List<Student> deleteStudentFromListTeacher(Long teacherId, Long studentId) {
+        Teacher teacher = getTeacherById(teacherId);
+        Student student = studentService.getStudentById(studentId);
+        teacher.deleteStudentFromTeacher(student);
+        teacherDao.save(teacher);
+        return new ArrayList<>(getMyStudents(teacherId));
     }
 }

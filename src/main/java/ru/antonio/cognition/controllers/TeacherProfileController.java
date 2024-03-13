@@ -194,11 +194,31 @@ public class TeacherProfileController {
     public String giveToStudentMyMethodic(@PathVariable Long teacherId,
                                           @PathVariable Long questId,
                                           @PathVariable Long studentId) {
+
         return "";
     }
 
     @RequestMapping(value = "/my-students/{studentId}", method = RequestMethod.DELETE)
-    public String deleteStudentFromMyList (@PathVariable Long studentId) {
-        return "";
+    public String deleteStudentFromMyList (@PathVariable Long teacherId,
+                                           @PathVariable Long studentId,
+                                           Model model) {
+        model.addAttribute("students", teacherService.deleteStudentFromListTeacher(teacherId, studentId));
+        return "student/my-students";
     }
+
+    @RequestMapping(value = "/all-students", method = RequestMethod.GET)
+    public String showAllStudents (Model model) {
+        model.addAttribute("students", teacherService.getAllStudents());
+        return "student/my-students";
+    }
+
+    @RequestMapping(value = "/all-students/{name}", method = RequestMethod.POST)
+    public String addStudentToList (@PathVariable Long teacherId,
+                                    @PathVariable String name,
+                                    Model model) {
+        model.addAttribute("students", teacherService.addStudentToList(teacherId, name));
+        return "student/my-students";
+    }
+
+
 }

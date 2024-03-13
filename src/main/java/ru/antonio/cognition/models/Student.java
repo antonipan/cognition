@@ -22,6 +22,11 @@ public class Student extends User {
     @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Teacher> teachers = new HashSet<>();
 
+
+    private Set<Questionnaire> notPassable = new HashSet<>();
+
+    private Set<Questionnaire> passable = new HashSet<>();
+
     public Student() {
     }
 
@@ -84,4 +89,5 @@ public class Student extends User {
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
     }
+
 }
