@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.antonio.cognition.models.Questionnaire;
-import ru.antonio.cognition.repositories.QuestionnaireRepository;
+import ru.antonio.cognition.repositories.QuestionnaireDao;
 import ru.antonio.cognition.services.QuestionnaireService;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class QuestionnaireServiceTest {
     private QuestionnaireService questionnaireService;
 
     @Mock
-    private QuestionnaireRepository questionnaireRepository;
+    private QuestionnaireDao questionnaireDao;
 
     List<Questionnaire> list;
 
@@ -48,12 +48,12 @@ public class QuestionnaireServiceTest {
         questionnaireService.saveAllQuestionnaire(list);
         questionnaireService.saveAllQuestionnaire(list);
 
-        Mockito.verify(questionnaireRepository, Mockito.times(2)).saveAll(list);
+        Mockito.verify(questionnaireDao, Mockito.times(2)).saveAll(list);
     }
 
     @Test
     public void getAllQuestionnaireTest () {
-        when(questionnaireRepository.findAll()).thenReturn(list);
+        when(questionnaireDao.findAll()).thenReturn(list);
         List <Questionnaire> getList = questionnaireService.getAllQuestionnaire();
         assertEquals(2, getList.size());
     }
@@ -65,7 +65,7 @@ public class QuestionnaireServiceTest {
         Questionnaire questionnaire = list.get(1);
         questionnaire.setId(id);
 
-        when(questionnaireRepository.findById(id)).thenReturn(Optional.of(questionnaire));
+        when(questionnaireDao.findById(id)).thenReturn(Optional.of(questionnaire));
 
         Questionnaire foundQuestionnaire = questionnaireService.getQuestionnaireById(id);
         assertEquals(id, foundQuestionnaire.getId());

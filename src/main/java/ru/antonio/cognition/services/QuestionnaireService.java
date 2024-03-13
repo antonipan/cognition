@@ -3,28 +3,28 @@ package ru.antonio.cognition.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.models.Questionnaire;
-import ru.antonio.cognition.repositories.QuestionnaireRepository;
+import ru.antonio.cognition.repositories.QuestionnaireDao;
 
 import java.util.List;
 
 @Service
 public class QuestionnaireService {
-    private QuestionnaireRepository questionnaireRepository;
+    private QuestionnaireDao questionnaireDao;
 
     @Autowired
-    public QuestionnaireService (QuestionnaireRepository questionnaireRepository) {
-        this.questionnaireRepository = questionnaireRepository;
+    public QuestionnaireService (QuestionnaireDao questionnaireDao) {
+        this.questionnaireDao = questionnaireDao;
     }
 
     public List <Questionnaire> saveAllQuestionnaire (List<Questionnaire> questionnaireList ) {
-        return questionnaireRepository.saveAll(questionnaireList);
+        return questionnaireDao.saveAll(questionnaireList);
     }
 
     public List <Questionnaire> getAllQuestionnaire () {
-        return questionnaireRepository.findAll();
+        return questionnaireDao.findAll();
     }
 
     public Questionnaire getQuestionnaireById(Long id) {
-        return questionnaireRepository.findById(id).orElse(null);
+        return questionnaireDao.findById(id).orElse(null);
     }
 }

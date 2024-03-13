@@ -121,17 +121,17 @@ public class TeacherProfileController {
 
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.GET)
-    public String showMyQuestionnaires (Model model) {
+    public String showMyQuestionnaires (@PathVariable Long teacherId, Model model) {
         return "";
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.POST)
-    public String createQuestToMyList (Questionnaire questionnaire) {
+    public String createQuestToMyList (@PathVariable Long teacherId, Questionnaire questionnaire) {
         return "";
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.PUT)
-    public String updateMyQuestionnaire(Long id, Questionnaire questionnaire) {
+    public String updateMyQuestionnaire(@PathVariable Long teacherId, Questionnaire questionnaire) {
         return "";
     }
 
@@ -146,17 +146,17 @@ public class TeacherProfileController {
     }
 
     @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.GET)
-    public String showProfileQuestionnaire (@PathVariable Long id) {
+    public String showProfileQuestionnaire (@PathVariable Long questId) {
         return "";
     }
 
     @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.POST)
-    public String addCurrentQuestionnaire (@PathVariable Long id) {
+    public String addCurrentQuestionnaire (@PathVariable Long questId) {
         return "";
     }
 
     @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.DELETE)
-    public String deleteQuestionnaireFromApp (@PathVariable Long id) {
+    public String deleteQuestionnaireFromApp (@PathVariable Long questId) {
         return "";
     }
 
@@ -167,6 +167,11 @@ public class TeacherProfileController {
 
     @RequestMapping(value = "/all-quest/find/bySubject", method = RequestMethod.GET)
     public String findQuestBySubject (@RequestBody String subject) {
+        return "";
+    }
+
+    @RequestMapping(value = "/all-quest/find/byAuthor", method = RequestMethod.GET)
+    public String findQuestByAuthor (@RequestBody String author) {
         return "";
     }
 
@@ -188,17 +193,20 @@ public class TeacherProfileController {
     //РАБОТА СО СТУДЕНТАМИ.
 
     @RequestMapping(value = "/my-students", method = RequestMethod.GET)
-    public String showMyStudents () {
+    public String showMyStudents (@PathVariable Long teacherId) {
         return "";
     }
 
-    @RequestMapping(value = "/my-students/{id}", method = RequestMethod.GET)
-    public String showProfileStudent (@PathVariable Long id) {
+    @RequestMapping(value = "/my-students/{studentId}", method = RequestMethod.GET)
+    public String showProfileStudent (@PathVariable Long teacherId,
+                                      @PathVariable Long studentId) {
         return "";
     }
 
-    @RequestMapping(value = "/my-students/{id}", method = RequestMethod.POST)
-    public String giveToStudentMyMethodic(@PathVariable Long studentId) {
+    @RequestMapping(value = "/my-quest/{questId}/{studentId}", method = RequestMethod.POST)
+    public String giveToStudentMyMethodic(@PathVariable Long teacherId,
+                                          @PathVariable Long questId,
+                                          @PathVariable Long studentId) {
         return "";
     }
 
@@ -206,11 +214,4 @@ public class TeacherProfileController {
     public String deleteStudentFromMyList (@PathVariable Long id) {
         return "";
     }
-
-
-
-
-
-
-
 }
