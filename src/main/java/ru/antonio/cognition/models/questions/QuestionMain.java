@@ -1,10 +1,20 @@
 package ru.antonio.cognition.models.questions;
 
-public abstract class QuestionMain {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "question")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class QuestionMain implements Question{
+
+    @EmbeddedId
+    @ManyToOne()
+    @JoinColumn(name = "questionnaire_id")
+    private Long questionId;
     private int orderNumber;
     protected String description;
     protected double weightAnswer;
+    protected int numberQuestion;
     protected int countTrueAnswers;
 
     public QuestionMain(int orderNumber, String description, double weightAnswer, int countTrueAnswers) {
@@ -34,12 +44,22 @@ public abstract class QuestionMain {
         this.description = description;
     }
 
+    @Override
     public double getWeightAnswer() {
         return weightAnswer;
     }
 
     public void setWeightAnswer(double weightAnswer) {
         this.weightAnswer = weightAnswer;
+    }
+
+    public int getNumberQuestion() {
+        return numberQuestion;
+    }
+
+    @Override
+    public void setNumberQuestion(int numberQuestion) {
+        this.numberQuestion = numberQuestion;
     }
 
     public int getCountTrueAnswers() {

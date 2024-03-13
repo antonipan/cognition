@@ -29,13 +29,15 @@ public class Questionnaire {
     @Column(name = "share_correct_answers", nullable = false)
     private double shareCorrectAnswers;
 
-    @Column(name = "questions")
+    @OneToMany(mappedBy = "questionId")
     private List<Question> questions = new ArrayList<>();
 
 
     public Questionnaire(String name, List <Question> questions) {
         this.name = name;
         this.questions.addAll(questions);
+        this.shareCorrectAnswers = setShareCorrectAnswers();
+        this.quantityQuestions = questions.size();
     }
 
     public Questionnaire(String name) {
@@ -85,6 +87,10 @@ public class Questionnaire {
         this.shareCorrectAnswers = shareCorrectAnswers;
     }
 
+    public double setShareCorrectAnswers() {
+        return weightMethodics(this.questions)*0.5;
+    }
+
     public List<Question> getQuestions() {
         return questions;
     }
@@ -95,17 +101,29 @@ public class Questionnaire {
 
     public void addQuestion (Question question) {
         this.questions.add(question);
+        this.shareCorrectAnswers = setShareCorrectAnswers();
+        this.quantityQuestions = this.questions.size();
     }
 
     public void deleteQuestion (Question question) {
         this.questions.remove(question);
+        this.shareCorrectAnswers = setShareCorrectAnswers();
+        this.quantityQuestions = this.questions.size();
     }
+
 
     public List<Question> mixedQuestions () {
         Collections.shuffle(this.questions);
+        int count = 0;
+        for (Question q: questions
+             ) {
+            q.setNumberQuestion(count);
+        }
         return this.questions;
     }
 
-
+    public double weightMethodics (List <Question> questions) {
+        return questions.stream().mapToDouble(Question::getWeightAnswer).sum();
+    }
 
 }
