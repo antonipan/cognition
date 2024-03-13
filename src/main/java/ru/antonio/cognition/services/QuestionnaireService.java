@@ -20,11 +20,19 @@ public class QuestionnaireService {
         return questionnaireDao.saveAll(questionnaireList);
     }
 
+    public Questionnaire saveOneQuestionnaire (Questionnaire questionnaire) {
+        return questionnaireDao.save(questionnaire);
+    }
+
     public List <Questionnaire> getAllQuestionnaire () {
         return questionnaireDao.findAll();
     }
 
     public Questionnaire getQuestionnaireById(Long id) {
         return questionnaireDao.findById(id).orElse(null);
+    }
+
+    public List<Questionnaire> getQuestionnaireByTeacherId(Long teacherId) {
+        return questionnaireDao.findWorkQuestionnairesByAuthorId(teacherId);
     }
 }

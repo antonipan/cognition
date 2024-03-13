@@ -2,6 +2,7 @@ package ru.antonio.cognition.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.aspects.TrackTeacherAction;
@@ -52,6 +53,14 @@ public class TeacherServiceImpl implements TeacherService {
         oldTeacher.addSubjectToSubjects(subject);
         teacherDao.save(oldTeacher);
         return oldTeacher;
+    }
+
+    public List<Questionnaire> updateTeacher(Long teacherId, Questionnaire questionnaire) {
+        Teacher oldTeacher = teacherDao.findById(teacherId)
+                .orElseThrow(() -> new NullPointerException("Not found"));
+        oldTeacher.addQuestionnaires(questionnaire);
+        teacherDao.save(oldTeacher);
+        return questService.getQuestionnaireByTeacherId(teacherId);
     }
 
     /**
@@ -113,5 +122,37 @@ public class TeacherServiceImpl implements TeacherService {
     public Subject getSubjectById (Integer subjectId) {
         return subjectService.getSubjectById(subjectId);
     }
+
+    public void saveMyQuestionnaire(Questionnaire questionnaire) {
+        questService.saveOneQuestionnaire(questionnaire);
+    }
+
+
+    public List<Questionnaire> getMyQuestionnaires(Long teacherId) {
+        return questService.getQuestionnaireByTeacherId(teacherId);
+    }
+
+    public Questionnaire getQuestionnaireById(Long questId) {
+        return questService.getQuestionnaireById(questId);
+    }
+
+    public Questionnaire updateMyQuestionnaire(Long questId, Questionnaire questionnaire) {
+        Questionnaire oldQuest = getQuestionnaireById(questId);
+        oldQuest.setQuestions(questionnaire.getQuestions());
+        oldQuest.setName(questionnaire.getName());
+        oldQuest.setShareCorrectAnswers(questionnaire.getShareCorrectAnswers());
+        saveMyQuestionnaire(oldQuest);
+        return oldQuest;
+    }
+
+    public List<Questionnaire> deleteQuestFromMyList(Long teacherId, Long questId) {
+        Teacher teacher = teacherDao.findById(teacherId)
+                .orElseThrow(() -> new RuntimeException("Not found"));
+        Questionnaire questionnaire = questService.getQuestionnaireById(questId);
+        teacher.deleteQuestFromMyQuests(questionnaire);
+        teacherDao.save(teacher);
+        return questService.getQuestionnaireByTeacherId(teacherId);
+    }
+
 
 }

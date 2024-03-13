@@ -1,9 +1,12 @@
 package ru.antonio.cognition.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -18,10 +21,10 @@ public class Questionnaire {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id", columnDefinition = "39")
     private Teacher author;
 
-    @Column(name = "quantity_questions", nullable = true)
+    @Column(name = "quantity_questions")
     private int quantityQuestions;
 
     @Column(name = "share_correct_answers", nullable = false)
@@ -29,6 +32,12 @@ public class Questionnaire {
 
     @Transient
     private List<String> questions = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "workQuestionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @ManyToMany(mappedBy = "workQuestionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set <Teacher> teachers = new HashSet<>();
+
 
     public Questionnaire() {
     }
@@ -38,6 +47,7 @@ public class Questionnaire {
         this.questions.addAll(questions);
         this.quantityQuestions = questions.size();
     }
+
 
     public Long getId() {
         return id;
@@ -79,11 +89,23 @@ public class Questionnaire {
         this.shareCorrectAnswers = shareCorrectAnswers;
     }
 
+    // WORK WITH COLLECTION OF QUESTIONS
+
     public List<String> getQuestions() {
         return questions;
     }
 
     public void setQuestions(List<String> questions) {
         this.questions = questions;
+    }
+
+    // WORK WITH COLLECTION OF TEACHERS
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }

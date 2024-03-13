@@ -10,7 +10,7 @@ import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.services.TeacherServiceImpl;
 
 @Controller
-@RequestMapping("/teachers/{id}")
+@RequestMapping("/teachers/{teacherId}")
 public class TeacherProfileController {
 
     private TeacherServiceImpl teacherService;
@@ -24,27 +24,27 @@ public class TeacherProfileController {
     // Работа с профилем.
     /**
      *
-     * @param id
+     * @param teacherId
      * @param model
      * @return
      */
     @GetMapping()
-    public String getByIdTeacher(@PathVariable Long id, Model model){
-        model.addAttribute("teacher", teacherService.getTeacherById(id));
-        return "teacherProfile";
+    public String getByIdTeacher(@PathVariable Long teacherId, Model model){
+        model.addAttribute("teacher", teacherService.getTeacherById(teacherId));
+        return "teacher/teacherProfile";
     }
 
 
 
     @PutMapping()
-    public String updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher, Model model) {
-        model.addAttribute("teacher", teacherService.updateTeacher(id, teacher));
-        return "teacherProfile";
+    public String updateTeacher(@PathVariable Long teacherId, @RequestBody Teacher teacher, Model model) {
+        model.addAttribute("teacher", teacherService.updateTeacher(teacherId, teacher));
+        return "teacher/teacherProfile";
     }
 
     @DeleteMapping()
-    public String deleteTeacherById (@PathVariable Long id) {
-        teacherService.deleteTeacherById(id);
+    public String deleteTeacherById (@PathVariable Long teacherId) {
+        teacherService.deleteTeacherById(teacherId);
         return "redirect:/reg";
     }
 
@@ -58,7 +58,7 @@ public class TeacherProfileController {
     @RequestMapping(value = "/subjects", method = RequestMethod.GET)
     public String showAllSubjects (Model model) {
         model.addAttribute("subjects", teacherService.getAllSubjects());
-        return "subjects";
+        return "subject/subjects";
     }
 
     /**
@@ -70,20 +70,22 @@ public class TeacherProfileController {
     @RequestMapping(value = "/subjects", method = RequestMethod.POST)
     public String createSubject (@RequestBody Subject subject, Model model) {
         model.addAttribute("subjects", teacherService.createSubject(subject));
-        return "subjects/all-subject";
+        return "subject/all-subjects";
     }
 
     /**
      * Добавляет предмет учителю
-     * @param id
+     * @param teacherId
      * @param subjectId
      * @return
      */
     @RequestMapping(value = "/subjects/{subjectId}", method = RequestMethod.PUT)
-    public String addSubjectToTeacher (@PathVariable Long id, @PathVariable Integer subjectId, Model model) {
+    public String addSubjectToTeacher (@PathVariable Long teacherId,
+                                       @PathVariable Integer subjectId,
+                                       Model model) {
         Subject subject = teacherService.getSubjectById(subjectId);
-        model.addAttribute("teacher", teacherService.updateTeacher(id, subject));
-        return "teacherProfile";
+        model.addAttribute("teacher", teacherService.updateTeacher(teacherId, subject));
+        return "teacher/teacherProfile";
     }
 
     /**
@@ -92,22 +94,16 @@ public class TeacherProfileController {
      * @return
      */
     @RequestMapping(value = "/my-subjects", method = RequestMethod.GET)
-    public String getTeacherSubjects (@PathVariable Long id, Model model) {
-        model.addAttribute("subjects", teacherService.getMySubjects(id));
+    public String getTeacherSubjects (@PathVariable Long teacherId, Model model) {
+        model.addAttribute("subjects", teacherService.getMySubjects(teacherId));
         return "subject/my-subjects";
     }
 
-    /**
-     * Учитель удаляет предмет из своего списка
-     * @param id
-     * @param subjectId
-     * @param model
-     * @return
-     */
+
     @RequestMapping(value = "/my-subjects/{subjectId}", method = RequestMethod.DELETE)
-    public String deleteMySubject(@PathVariable Long id, @PathVariable Integer subjectId, Model model) {
-        teacherService.deleteSubjectFromTeacherList(id, subjectId);
-        model.addAttribute("subjects", teacherService.getMySubjects(id));
+    public String deleteMySubject(@PathVariable Long teacherId, @PathVariable Integer subjectId, Model model) {
+        teacherService.deleteSubjectFromTeacherList(teacherId, subjectId);
+        model.addAttribute("subjects", teacherService.getMySubjects(teacherId));
         return "subject/my-subjects";
     }
 
@@ -116,22 +112,35 @@ public class TeacherProfileController {
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.GET)
     public String showMyQuestionnaires (@PathVariable Long teacherId, Model model) {
-        return "";
+        model.addAttribute("questionnaires", teacherService.getMyQuestionnaires(teacherId));
+        model.addAttribute("teacher", teacherService.getTeacherById(teacherId));
+        return "questionnaire/my-questionnaires";
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.POST)
-    public String createQuestToMyList (@PathVariable Long teacherId, @RequestBody Questionnaire questionnaire) {
-        return "";
+    public Questionnaire createQuestToMyList (@PathVariable Long teacherId,
+                                       @RequestBody Questionnaire questionnaire
+                                       ) {
+        Teacher teacher = teacherService.getTeacherById(teacherId);
+        questionnaire.setAuthor(teacher);
+        teacherService.saveMyQuestionnaire(questionnaire);
+        return questionnaire;
     }
 
-    @RequestMapping(value = "/my-quest", method = RequestMethod.PUT)
-    public String updateMyQuestionnaire(@PathVariable Long teacherId, Questionnaire questionnaire) {
-        return "";
+    @RequestMapping(value = "/my-quest/{questId}", method = RequestMethod.PUT)
+    public String updateMyQuestionnaire(@PathVariable Long questId,
+                                        @RequestBody Questionnaire questionnaire,
+                                        Model model) {
+        model.addAttribute("questionnaire", teacherService.updateMyQuestionnaire(questId, questionnaire));
+        return "questionnaire/questionnaireProfile";
     }
 
     @RequestMapping(value = "/my-quest", method = RequestMethod.DELETE)
-    public String deleteQuestFromMyList (@PathVariable Long teacherId, @PathVariable Long questId) {
-        return "";
+    public String deleteQuestFromMyList (@PathVariable Long teacherId,
+                                         @RequestParam Long questId,
+                                         Model model) {
+        model.addAttribute("questionnaires", teacherService.deleteQuestFromMyList(teacherId, questId));
+        return "questionnaire/my-questionnaires";
     }
 
     @RequestMapping(value = "/all-quest", method = RequestMethod.GET)
@@ -139,17 +148,21 @@ public class TeacherProfileController {
         return "";
     }
 
-    @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.GET)
     public String showProfileQuestionnaire (@PathVariable Long questId) {
         return "";
     }
 
-    @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.POST)
-    public String addCurrentQuestionnaire (@PathVariable Long questId) {
-        return "";
+    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.PUT)
+    public String addQuestToTeacher (@PathVariable Long teacherId,
+                                     @PathVariable Long questId,
+                                     Model model) {
+        Questionnaire questionnaire = teacherService.getQuestionnaireById(questId);
+        model.addAttribute("questionnaires", teacherService.updateTeacher(teacherId, questionnaire));
+        return "questionnaire/my-questionnaires";
     }
 
-    @RequestMapping(value = "/all-quest/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.DELETE)
     public String deleteQuestionnaireFromApp (@PathVariable Long questId) {
         return "";
     }
@@ -204,8 +217,8 @@ public class TeacherProfileController {
         return "";
     }
 
-    @RequestMapping(value = "/my-students/{id}", method = RequestMethod.DELETE)
-    public String deleteStudentFromMyList (@PathVariable Long id) {
+    @RequestMapping(value = "/my-students/{studentId}", method = RequestMethod.DELETE)
+    public String deleteStudentFromMyList (@PathVariable Long studentId) {
         return "";
     }
 }

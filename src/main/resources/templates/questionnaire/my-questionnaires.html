@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Список моих методик</title>
+    <meta charset="utf-8" />
+    <title>Анкеты, тесты, опросники</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<h2>
+    <th th:text = "${teacher.name}">!!!</th>
+</h2>
+<p>Ниже представлены ваши тесты, методики для проверки знаний учащихся</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+    </tr>
+    <tr th:each="questionnaire: ${questionnaires}">
+        <th th:text = "${questionnaire.id}"></th>
+        <th><a th:href = "@{/questionnaires/{id}(id=${questionnaire.id})}" th:text="${questionnaire.name}"></a></th>
+        <th th:text = "${questionnaire.author.name}"></th>
+    </tr>
+</table>
+
+<th><a th:href = "@{/teachers/{id}(id=${teacher.id})}">Назад в свой кабинет</a></th>
 
 </body>
 </html>

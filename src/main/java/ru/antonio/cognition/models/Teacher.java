@@ -29,8 +29,17 @@ public class Teacher extends User {
     )
     private Set<Student> students = new HashSet<>();
 
+
     @OneToMany(mappedBy = "author")
-    private Set<Questionnaire> questionnaires = new HashSet<>();
+    private Set<Questionnaire> myQuestionnaires = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "quest_of_teachers",
+            joinColumns = @JoinColumn(name = "teach_id"),
+            inverseJoinColumns = @JoinColumn(name = "quest_id")
+    )
+    private Set<Questionnaire> allQuestionnaires = new HashSet<>(myQuestionnaires);
 
     public Teacher() {
     }
@@ -91,8 +100,28 @@ public class Teacher extends User {
     // WORK WITH TO COLLECTION OF QUESTIONNAIRES
 
     public void addQuestionnaires (Questionnaire questionnaire) {
-        this.questionnaires.add(questionnaire);
+        this.myQuestionnaires.add(questionnaire);
     }
+
+
+    public Set<Questionnaire> getAllQuestionnaires() {
+        return allQuestionnaires;
+    }
+
+    public void setAllQuestionnaires(Set<Questionnaire> allQuestionnaires) {
+        this.allQuestionnaires = allQuestionnaires;
+    }
+
+    public void addQuestToQuests (Questionnaire questionnaire) {
+        this.allQuestionnaires.add(questionnaire);
+        questionnaire.getTeachers().add(this);
+    }
+
+    public void deleteQuestFromMyQuests (Questionnaire questionnaire) {
+        this.allQuestionnaires.remove(questionnaire);
+        questionnaire.getTeachers().remove(this);
+    }
+
 
 
     public Set<Student> getStudents() {
