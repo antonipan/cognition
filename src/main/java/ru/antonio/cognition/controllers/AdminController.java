@@ -1,18 +1,14 @@
 package ru.antonio.cognition.controllers;
 
-import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import ru.antonio.cognition.models.Teacher;
-import ru.antonio.cognition.services.TeacherServiceImpl;
-
-import java.util.List;
-
+/**
+ * класс контроллера запросов администратора. Пока не реализован
+ *
+ * @author antonio
+ * @version 1.0
+ */
 public class AdminController {
 
+    // TODO: 14.03.2024 Реализовать функционал администратора
     //Работа с учителями
 
     //Работа с методиками
