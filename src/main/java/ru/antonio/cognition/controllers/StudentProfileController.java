@@ -67,6 +67,6 @@ public class StudentProfileController {
                                 @PathVariable Long questId,
                                 @RequestBody Questionnaire questionnaire) {
         studentService.passTesting(studentId, questId, questionnaire);
-        return "";
+        return "student/studentProfile";
     }
 }
