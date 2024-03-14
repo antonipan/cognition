@@ -202,4 +202,8 @@ public class TeacherServiceImpl implements TeacherService {
         student.addNotPass(questionnaire);
         studentService.saveStudent(student);
     }
+
+    public List <Teacher> getTeacherByName(String name) {
+        return teacherDao.findByName(name);
+    }
 }

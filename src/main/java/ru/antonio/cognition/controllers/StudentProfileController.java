@@ -32,29 +32,41 @@ public class StudentProfileController {
         return "student/studentProfile";
     }
 
-    public String updateMyProfile (@PathVariable Long studentId, @RequestBody Student student) {
-        return "";
+    @RequestMapping(method = RequestMethod.PUT)
+    public String updateMyProfile (@PathVariable Long studentId,
+                                   @RequestBody Student student,
+                                   Model model) {
+        Student oldStudent = studentService.updateStudent(studentId, student);
+        model.addAttribute("student", oldStudent);
+        model.addAttribute("noPass", oldStudent.getNotPassable());
+        model.addAttribute("pass", oldStudent.getPassable());
+        return "student/studentProfile";
     }
 
-    public String findTeacherByName (@RequestBody String name){
-        return "";
+    @RequestMapping(value = "/all-teach/findByName", method = RequestMethod.POST)
+    public String findTeacherByName (@RequestBody String name, Model model){
+        model.addAttribute("teachers", studentService.findTeacherByName(name));
+        return "teacher/all-teachers";
     }
 
-    public String findTeacherBySubject (@RequestBody String subject) {
-        return "";
+    @RequestMapping(value = "/my-teachers", method = RequestMethod.GET)
+    public String showMyTeachers (@PathVariable Long studentId,
+                                  Model model) {
+        model.addAttribute("teachers", studentService.getStudentById(studentId).getTeachers());
+        return "teacher/all-teachers";
     }
 
-    public String showMyTeachers (@PathVariable Long studentId) {
-        return "";
+    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.GET)
+    public String openMethodic (@PathVariable Long questId, Model model) {
+        model.addAttribute("questionnaire", studentService.showQuestionnaire(questId));
+        return "questionnaire/questionnaireProfile";
     }
 
-    public String openMethodic (@PathVariable Long id) {
-        return "";
-    }
-
+    @RequestMapping(value = "/all-quest/{questId}", method = RequestMethod.POST)
     public String goToMethodic (@PathVariable Long studentId,
                                 @PathVariable Long questId,
                                 @RequestBody Questionnaire questionnaire) {
+        studentService.passTesting(studentId, questId, questionnaire);
         return "";
     }
 }

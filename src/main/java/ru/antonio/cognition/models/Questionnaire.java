@@ -29,7 +29,7 @@ public class Questionnaire implements Serializable {
     private double shareCorrectAnswers;
 
     @Column(name = "questions")
-    private List<Question> questions = new ArrayList<>();
+    private List <String> questions = new ArrayList<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "questionnaires", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -48,10 +48,11 @@ public class Questionnaire implements Serializable {
     public Questionnaire() {
     }
 
-    public Questionnaire(String name, List <Question> questions) {
+    public Questionnaire(String name, List <String> questions) {
         this.name = name;
         this.questions.addAll(questions);
         this.quantityQuestions = questions.size();
+        this.shareCorrectAnswers = quantityQuestions*0.5;
     }
 
 
@@ -89,11 +90,11 @@ public class Questionnaire implements Serializable {
 
     // WORK WITH COLLECTION OF QUESTIONS
 
-    public List<Question> getQuestions() {
+    public List<String> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<String> questions) {
         this.questions = questions;
     }
 
@@ -123,7 +124,7 @@ public class Questionnaire implements Serializable {
         this.students = students;
     }
 
-    public void addQuestion (Question question) {
+    public void addQuestion (String question) {
         this.questions.add(question);
     }
 
