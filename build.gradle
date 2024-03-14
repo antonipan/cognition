@@ -21,11 +21,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 //	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.2'
 	// https://mvnrepository.com/artifact/org.mockito/mockito-core
 	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.8.0'
+
+	// https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit
+	implementation group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.70.0'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.2.2'
 // https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus

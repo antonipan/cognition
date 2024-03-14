@@ -40,7 +40,7 @@ public class RegistrationUserController {
      * Показывает пользователям первую страницу приложения.
      * @return
      */
-    @RequestMapping(value = "/welcom", method = RequestMethod.GET)
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcome () {
         return "forward:/api/api.html";
     }
@@ -109,7 +109,8 @@ public class RegistrationUserController {
      * по эндпоинтам согласно его роли}. Если проверка не пройдена, метод вернёт форму авторизации.
      */
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public String getAuthorization (@RequestParam("username") String name, @RequestParam("password") String password) {
+    public String getAuthorization (@RequestParam("username") String name,
+                                    @RequestParam("password") String password) {
         if(userService.checkingNameAndPassword(name, password)) {
             return branchOnRoles(name);
         }
@@ -135,7 +136,7 @@ public class RegistrationUserController {
      * если {@link Role} пользователя - учитель; или форму для {@link ru.antonio.cognition.models.Student},
      * если {@link Role} пользователя - студент. Во всех остальных случаях вовзаращает на форму авторизации.
      */
-    private String branchOnRoles (String name) {
+    public String branchOnRoles (String name) {
         User user = userService.getUserByName(name);
         if(getRoleUser(user).equalsIgnoreCase("teacher")) {
             return "redirect:/teachers/" + user.getId();

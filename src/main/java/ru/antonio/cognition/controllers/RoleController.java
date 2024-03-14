@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.antonio.cognition.models.Role;
 import ru.antonio.cognition.services.RoleServiceImpl;
 
-import java.util.List;
-
 
 @Controller
 @RequestMapping("/admin")
@@ -25,13 +23,12 @@ public class RoleController {
     @GetMapping("/role")
     public String getAllRole (Model model) {
         model.addAttribute("roles", roleService.getRoles());
-        return "roles";
+        return "admin/roles";
     }
 
     @PostMapping("/role")
     @ResponseBody
     public Role save (@RequestBody Role role) {
-
         return roleService.saveRole(role);
     }
 

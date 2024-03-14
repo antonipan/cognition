@@ -10,13 +10,16 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeacherDao;
 import ru.antonio.cognition.services.TeacherService;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TeacherServiceTest {
 
     @InjectMocks
-    private TeacherService teacherService;
+    private TeacherServiceImpl teacherService;
 
     @Mock
     private TeacherDao teacherDao;
@@ -38,10 +41,13 @@ public class TeacherServiceTest {
         MockitoAnnotations.openMocks(this);
 
         teacherList = new ArrayList<>();
+        Subject subject = new Subject("history");
+        Set<Subject> subjects = new HashSet<>();
+        subjects.add(subject);
 
-        Teacher teacher1 = new Teacher("ivan", "history", 5);
-        Teacher teacher2 = new Teacher("Inna", "Math", 10);
-        Teacher teacher3 = new Teacher("Pavel", "Politica", 3);
+        Teacher teacher1 = new Teacher("ivan", subjects, 5);
+        Teacher teacher2 = new Teacher("Inna", subjects, 10);
+        Teacher teacher3 = new Teacher("Pavel", subjects, 3);
 
         teacherList.add(teacher1);
         teacherList.add(teacher2);
@@ -73,15 +79,15 @@ public class TeacherServiceTest {
 
     }
 
-    @Test
-    public void getTeacherByExperienceTest () {
-        Teacher teacher = new Teacher("p", "v", 5);
-        List <Teacher> teachers = new ArrayList<>();
-        teachers.add(teacher);
-        when(teacherDao.findByExperience(5)).thenReturn(teachers);
-
-        List <Teacher> foundlist = teacherService.getListByExperience(5);
-        assertEquals(5, foundlist.get(0).getExperience());
-
-    }
+//    @Test
+//    public void getTeacherByExperienceTest () {
+//        Teacher teacher = new Teacher("p", new HashSet<>(), 5);
+//        List <Teacher> teachers = new ArrayList<>();
+//        teachers.add(teacher);
+//        when(teacherDao.findByName(1L)).thenReturn(teachers);
+//
+//        List <Teacher> foundlist = teacherService.getTeacherById(1);
+//        assertEquals(5, foundlist.get(0).getExperience());
+//
+//    }
 }

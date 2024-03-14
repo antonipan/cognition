@@ -1,9 +1,7 @@
 package ru.antonio.cognition.services;
 
-import org.hibernate.annotations.DialectOverride;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.antonio.cognition.models.Admin;
 import ru.antonio.cognition.models.Student;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.models.User;
@@ -56,9 +54,6 @@ public class UserServiceImpl implements UserService {
             Student student = new Student(newUser.getUsername(),
                     newUser.getPassword(), newUser.getRole());
             studentService.saveStudent(student);
-        } else if (newUser.getRole().getName().equalsIgnoreCase("admin")) {
-            Admin admin = new Admin(newUser.getUsername(),
-                    newUser.getPassword(), newUser.getRole());
         }
     }
 
