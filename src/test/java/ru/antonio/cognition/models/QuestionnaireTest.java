@@ -16,14 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class QuestionnaireTest {
 
-//    @InjectMocks
-//    private QuestionnaireService questionnaireService;
-//
-//    @Mock
-//    private QuestionnaireRepository questionnaireRepository;
-//
-//    List<Questionnaire> list;
-
     Questionnaire questionnaire;
     List<String> questions;
 
