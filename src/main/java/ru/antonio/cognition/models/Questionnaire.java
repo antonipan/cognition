@@ -2,7 +2,6 @@ package ru.antonio.cognition.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -77,7 +76,11 @@ public class Questionnaire implements Serializable {
     }
 
     public void setQuantityQuestions(int quantityQuestions) {
-        this.quantityQuestions = quantityQuestions;
+        if(this.questions.size() == quantityQuestions) {
+            this.quantityQuestions = quantityQuestions;
+        } else {
+            throw new IllegalArgumentException("No possible to set quantity questions");
+        }
     }
 
     public double getShareCorrectAnswers() {
@@ -96,6 +99,8 @@ public class Questionnaire implements Serializable {
 
     public void setQuestions(List<String> questions) {
         this.questions = questions;
+        this.quantityQuestions = questions.size();
+        this.shareCorrectAnswers = quantityQuestions*0.5;
     }
 
     // WORK WITH COLLECTION OF TEACHERS
