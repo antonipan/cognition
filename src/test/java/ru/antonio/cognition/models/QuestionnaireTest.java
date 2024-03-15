@@ -45,6 +45,7 @@ public class QuestionnaireTest {
     @Test
     void getNameTest() {
         questionnaire.setName("bob");
+        assertNotEquals("ooo", questionnaire.getName());
         String name = questionnaire.getName();
         assertEquals("bob", name);
     }
@@ -58,12 +59,19 @@ public class QuestionnaireTest {
 
     @Test
     void getQuantityQuestionsTest () {
-        assertEquals(questions.size(), questionnaire.getQuantityQuestions());
+        int num = questionnaire.getQuantityQuestions();
+        assertEquals(questions.size(), num);
     }
 
     @Test
     void setQuantityQuestionsTest ()  {
-        assertThrows(IllegalArgumentException.class, () -> questionnaire.setQuantityQuestions(100));
+        int que = questionnaire.getQuantityQuestions();
+        assertEquals(4, que);
+        questionnaire.setQuantityQuestions(4);
+        que = questionnaire.getQuantityQuestions();
+        assertEquals(4, que);
+        assertThrows(IllegalArgumentException.class,
+                () -> questionnaire.setQuantityQuestions(100));
     }
 
     @Test
@@ -74,7 +82,8 @@ public class QuestionnaireTest {
     @Test
     void setShareCorrectAnswerTest () {
         questionnaire.setShareCorrectAnswers(10);
-        assertEquals(10, questionnaire.getShareCorrectAnswers());
+        double correct = questionnaire.getShareCorrectAnswers();
+        assertEquals(10, correct);
     }
 
     @Test
@@ -108,7 +117,8 @@ public class QuestionnaireTest {
     void setTeachersTest() {
         Set <Teacher> teachers = new HashSet<>();
         questionnaire.setTeachers(teachers);
-        assertEquals(0, questionnaire.getTeachers().size());
+        int sise = questionnaire.getTeachers().size();
+        assertEquals(0, sise);
     }
 
     @Test
@@ -125,7 +135,8 @@ public class QuestionnaireTest {
         Student student1 = new Student();
         Set<Student> notStudents = new HashSet<>();
         questionnaire.setNotStudents(notStudents);
-        assertNotEquals(1, questionnaire.getNotStudents().size());
+        int sise = questionnaire.getNotStudents().size();
+        assertNotEquals(1, sise);
         notStudents.add(student1);
         assertEquals(1, questionnaire.getNotStudents().size());
     }
@@ -143,16 +154,20 @@ public class QuestionnaireTest {
     @Test
     void addQuestionsTest () {
         String question1 = "i";
-        assertNotEquals(5, questionnaire.getQuestions().size());
+        int size = questionnaire.getQuestions().size();
+        assertNotEquals(5, size);
         questionnaire.addQuestion(question1);
-        assertEquals(5, questionnaire.getQuestions().size());
+        size = questionnaire.getQuestions().size();
+        assertEquals(5, size);
     }
 
     @Test
     void deleteQuestionsTest () {
         String question1 = "i";
-        assertNotEquals(3, questionnaire.getQuestions().size());
+        int size = questionnaire.getQuestions().size();
+        assertNotEquals(3, size);
         questionnaire.deleteQuestion(3);
-        assertEquals(3, questionnaire.getQuestions().size());
+        size = questionnaire.getQuestions().size();
+        assertEquals(3, size);
     }
 }

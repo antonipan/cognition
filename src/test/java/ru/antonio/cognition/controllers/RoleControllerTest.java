@@ -36,6 +36,7 @@ public class RoleControllerTest {
 
     private WebClient webClient;
 
+    RoleController roleController;
 
     @BeforeEach
     void setup(WebApplicationContext context) {

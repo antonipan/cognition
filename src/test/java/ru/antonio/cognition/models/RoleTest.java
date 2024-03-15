@@ -26,13 +26,16 @@ public class RoleTest {
     @Test
     void getAndSetId () {
         admin.setId(33);
-        assertEquals(33, admin.getId());
+        int id = admin.getId();
+        assertEquals(33, id);
     }
 
     @Test
     void getAndSetRoleNameTest () {
-        assertEquals("admin", admin.getName());
+        String name = admin.getName();
+        assertEquals("admin", name);
         admin.setName("user");
-        assertNotEquals("admin", admin.getName());
+        name = admin.getName();
+        assertNotEquals("admin", name);
     }
 }
