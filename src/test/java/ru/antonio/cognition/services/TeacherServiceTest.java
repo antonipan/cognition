@@ -11,19 +11,19 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeacherDao;
 import ru.antonio.cognition.services.TeacherService;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -44,21 +44,26 @@ public class TeacherServiceTest {
     @Mock
     private StudentServiceImpl studentService;
 
+    private Teacher ivan;
+    private Teacher inna;
+    private Teacher pavel;
+    private List<Teacher> teacherList;
 
-    List<Teacher> teacherList;
+    private Subject logic;
+    private Set <Subject> subjects;
 
     @BeforeEach
     public void setup () {
         MockitoAnnotations.openMocks(this);
 
         teacherList = new ArrayList<>();
-        Subject subject = new Subject("history");
-        Set<Subject> subjects = new HashSet<>();
-        subjects.add(subject);
+        logic = new Subject("logic");
+        subjects = new HashSet<>();
+        subjects.add(logic);
 
-        Teacher ivan = new Teacher("ivan", subjects, 5);
-        Teacher inna = new Teacher("Inna", subjects, 10);
-        Teacher pavel = new Teacher("Pavel", subjects, 3);
+        ivan = new Teacher("ivan", subjects, 5);
+        inna = new Teacher("inna", subjects, 10);
+        pavel = new Teacher("pavel", subjects, 3);
 
         teacherList.add(ivan);
         teacherList.add(inna);
@@ -75,17 +80,51 @@ public class TeacherServiceTest {
 
     @Test
     void updateTeacherByTeacherTest () {
+        Long teachId = 1L;
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(ivan));
+        when(teacherDao.findById(33L)).thenThrow(new NullPointerException());
+
+        Teacher updateIvan = teacherService.updateTeacher(teachId, inna);
+
+        assertEquals("inna", updateIvan.getName());
+        assertThrows(NullPointerException.class,
+                () -> teacherService.updateTeacher(33L, inna));
 
     }
 
     @Test
     void updateTeacherBySubjectTest() {
+        Long teachId = 1L;
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(ivan));
+        when(teacherDao.findById(33L)).thenThrow(new NullPointerException());
 
+        Teacher updateIvan = teacherService.updateTeacher(teachId, new Subject("music"));
+
+        assertNotNull(updateIvan.getSubjects().stream().filter(s -> s.getName().equals("music")).findFirst());
+        assertThrows(NullPointerException.class,
+                () -> teacherService.updateTeacher(33L, new Subject("music")));
     }
 
     @Test
     void updateTeacherByQuestionnaireTest () {
+        Long teachId = 1L;
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(ivan));
+        when(teacherDao.findById(33L)).thenThrow(new NullPointerException());
 
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
+        List <Questionnaire> questionnaires = new ArrayList<>();
+        questionnaires.add(questionnaire);
+
+        when(teacherDao.save(ivan)).thenReturn(ivan);
+
+        when(questService.getQuestionnairesByTeacherId(teachId)).thenReturn(questionnaires);
+
+        List<Questionnaire> findListQuest = teacherService.updateTeacher(teachId, questionnaire);
+
+        assertEquals(1, findListQuest.size());
+        assertThrows(NullPointerException.class,
+                () -> teacherService.updateTeacher(33L, questionnaire));
     }
 
 
@@ -94,6 +133,8 @@ public class TeacherServiceTest {
         teacherService.saveAllTeacher(teacherList);
 
         Mockito.verify(teacherDao, Mockito.times(1)).saveAll(teacherList);
+
+
     }
 
     @Test
@@ -106,47 +147,114 @@ public class TeacherServiceTest {
 
     @Test
     void getTeacherByIdTest() {
+        Long teacherId = 1L;
+        when(teacherDao.findById(teacherId)).thenReturn(Optional.ofNullable(inna));
+        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
 
+        Teacher teacher = teacherService.getTeacherById(teacherId);
+
+        assertEquals("inna", teacher.getName());
+        assertThrows(NoSuchElementException.class,
+                () -> teacherService.getTeacherById(33L));
     }
 
     @Test
     void deleteTeacherByIdTest () {
+        Long teacherId = 1L;
 
+        doNothing().when(teacherDao).deleteById(teacherId);
+
+        teacherService.deleteTeacherById(teacherId);
+
+        verify(teacherDao, times(1)).deleteById(teacherId);
     }
 
     @Test
     void getMySubjectsTest () {
+        Long teacherId = 1L;
+        when(subjectService.getSubjectsByTeacherId(teacherId))
+                .thenReturn(new ArrayList<>(subjects));
 
+        List<Subject> findSubjects = teacherService.getMySubjects(teacherId);
+
+        assertEquals(1, findSubjects.size());
     }
 
     @Test
     void deleteSubjectFromTeacherListTest () {
+        Long teachId = 1L;
+        Integer subjId = 11;
+
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
+        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
+
+        when(subjectService.getSubjectById(subjId)).thenReturn(logic);
+        when(teacherDao.save(inna)).thenReturn(inna);
+        inna.addSubjectToSubjects(logic);
+
+        assertEquals(1, inna.getSubjects().size());
+        teacherService.deleteSubjectFromTeacherList(teachId, subjId);
+
+        assertEquals(0, inna.getSubjects().size());
+        assertThrows(NullPointerException.class,
+                () -> teacherService.deleteSubjectFromTeacherList(2L, subjId));
 
     }
 
     @Test
     void getAllSubjectsTest () {
+        when(subjectService.getAllSubject()).thenReturn(subjects);
 
+        Set<Subject> findSubject = teacherService.getAllSubjects();
+
+        assertTrue(findSubject.contains(logic));
     }
 
     @Test
     void createSubjectTest () {
+        when(subjectService.createSubject(logic)).thenReturn(logic);
 
+        Subject findSubject = teacherService.createSubject(logic);
+
+        assertEquals("logic", findSubject.getName());
     }
 
     @Test
     void getSubjectByIdTest () {
+        Integer subId = 1;
 
+        when(subjectService.getSubjectById(subId)).thenReturn(logic);
+
+        Subject findSubject = teacherService.getSubjectById(subId);
+
+        assertEquals("logic", findSubject.getName());
     }
 
     @Test
     void createQuestionnaire () {
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
 
+        when(questService.saveOneQuestionnaire(questionnaire)).thenReturn(questionnaire);
+
+        Questionnaire findQuest = teacherService.createQuestionnaire(questionnaire);
+
+        assertEquals("math", findQuest.getName());
     }
 
     @Test
     void getMyQuestionnairesTest () {
+        Long teacherId = 1L;
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
+        List <Questionnaire> questionnaires = new ArrayList<>();
+        questionnaires.add(questionnaire);
 
+        when(questService.getQuestionnairesByTeacherId(teacherId)).thenReturn(questionnaires);
+
+        List<Questionnaire> findQuestionnaire = teacherService.getMyQuestionnaires(teacherId);
+
+        assertEquals(1, findQuestionnaire.size());
     }
 
     @Test
