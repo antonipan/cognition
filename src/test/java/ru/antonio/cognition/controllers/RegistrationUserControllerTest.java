@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,6 +19,7 @@ import ru.antonio.cognition.models.User;
 import ru.antonio.cognition.services.RoleServiceImpl;
 import ru.antonio.cognition.services.UserServiceImpl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,6 +28,9 @@ public class RegistrationUserControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @InjectMocks
+    public RegistrationUserController regUsController;
 
     @MockBean
     private UserServiceImpl userService;
@@ -57,6 +62,9 @@ public class RegistrationUserControllerTest {
         mvc.perform(get("/welcome"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("forward:/api/api.html"));
+        String url = regUsController.welcome();
+
+        assertEquals("forward:/api/api.html", url);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package ru.antonio.cognition.services;
 
+import jakarta.persistence.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +35,16 @@ public class TeacherServiceTest {
     @Mock
     private TeacherDao teacherDao;
 
+    @Mock
+    private SubjectService subjectService;
+
+    @Mock
+    private QuestionnaireService questService;
+
+    @Mock
+    private StudentServiceImpl studentService;
+
+
     List<Teacher> teacherList;
 
     @BeforeEach
@@ -45,15 +56,13 @@ public class TeacherServiceTest {
         Set<Subject> subjects = new HashSet<>();
         subjects.add(subject);
 
-        Teacher teacher1 = new Teacher("ivan", subjects, 5);
-        Teacher teacher2 = new Teacher("Inna", subjects, 10);
-        Teacher teacher3 = new Teacher("Pavel", subjects, 3);
+        Teacher ivan = new Teacher("ivan", subjects, 5);
+        Teacher inna = new Teacher("Inna", subjects, 10);
+        Teacher pavel = new Teacher("Pavel", subjects, 3);
 
-        teacherList.add(teacher1);
-        teacherList.add(teacher2);
-        teacherList.add(teacher3);
-
-        System.out.println(teacherList.size() + " РАЗМЕР ЛИСТА") ;
+        teacherList.add(ivan);
+        teacherList.add(inna);
+        teacherList.add(pavel);
 
     }
 
@@ -63,6 +72,22 @@ public class TeacherServiceTest {
         teacherService.saveTeacher(teacher);
         Mockito.verify(teacherDao, Mockito.times(1)).save(teacher);
     }
+
+    @Test
+    void updateTeacherByTeacherTest () {
+
+    }
+
+    @Test
+    void updateTeacherBySubjectTest() {
+
+    }
+
+    @Test
+    void updateTeacherByQuestionnaireTest () {
+
+    }
+
 
     @Test
     public void saveAllTeachers () {
@@ -79,15 +104,98 @@ public class TeacherServiceTest {
 
     }
 
-//    @Test
-//    public void getTeacherByExperienceTest () {
-//        Teacher teacher = new Teacher("p", new HashSet<>(), 5);
-//        List <Teacher> teachers = new ArrayList<>();
-//        teachers.add(teacher);
-//        when(teacherDao.findByName(1L)).thenReturn(teachers);
-//
-//        List <Teacher> foundlist = teacherService.getTeacherById(1);
-//        assertEquals(5, foundlist.get(0).getExperience());
-//
-//    }
+    @Test
+    void getTeacherByIdTest() {
+
+    }
+
+    @Test
+    void deleteTeacherByIdTest () {
+
+    }
+
+    @Test
+    void getMySubjectsTest () {
+
+    }
+
+    @Test
+    void deleteSubjectFromTeacherListTest () {
+
+    }
+
+    @Test
+    void getAllSubjectsTest () {
+
+    }
+
+    @Test
+    void createSubjectTest () {
+
+    }
+
+    @Test
+    void getSubjectByIdTest () {
+
+    }
+
+    @Test
+    void createQuestionnaire () {
+
+    }
+
+    @Test
+    void getMyQuestionnairesTest () {
+
+    }
+
+    @Test
+    void getQuestionnaireByIdTest () {
+
+    }
+
+    @Test
+    void updateMyQuestionnaireTest () {
+
+    }
+
+    @Test
+    void getAllQuestionnaireTest () {
+
+    }
+
+    @Test
+    void findQuestByNameTest () {
+
+    }
+
+    @Test
+    void getMyStudentsTest () {
+
+    }
+
+    @Test
+    void getAllStudentsTest () {
+
+    }
+
+    @Test
+    void addStudentToListTest () {
+
+    }
+
+    @Test
+    void deleteStudentFromListTeacherTest () {
+
+    }
+
+    @Test
+    void setQuestForStudentTest () {
+
+    }
+
+    @Test
+    void getTeacherByNameTest () {
+
+    }
 }
