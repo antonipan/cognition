@@ -36,9 +36,4 @@ public class QuestionnaireService {
         return questionnaireDao.findQuestionnairesByTeachersId(teacherId);
     }
 
-    public List<Questionnaire> getQuestByName(String questName) {
-        return questionnaireDao.findByName(questName);
-    }
-
-
 }

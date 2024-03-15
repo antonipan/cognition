@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.repositories.QuestionnaireDao;
-import ru.antonio.cognition.services.QuestionnaireService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,5 +69,16 @@ public class QuestionnaireServiceTest {
         Questionnaire foundQuestionnaire = questionnaireService.getQuestionnaireById(id);
         assertEquals(id, foundQuestionnaire.getId());
         assertNotEquals(anotherId, foundQuestionnaire.getId());
+    }
+
+    @Test
+    void getQuestionnairesByTeacherIdTest () {
+        Long teacherId = 33L;
+
+        when(questionnaireDao.findQuestionnairesByTeachersId(teacherId))
+                .thenReturn(list);
+        List<Questionnaire> listToRepository = questionnaireService.getQuestionnairesByTeacherId(teacherId);
+
+        assertEquals(2, listToRepository.size());
     }
 }
