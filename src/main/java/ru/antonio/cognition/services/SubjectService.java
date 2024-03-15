@@ -32,7 +32,8 @@ public class SubjectService {
     }
 
     public Subject getSubjectById (Integer id) {
-        return subjectDao.findById(id).orElseThrow(() -> new NullPointerException("Such subject not exists... "));
+        return subjectDao.findById(id)
+                .orElseThrow(() -> new NullPointerException("Such subject not exists... "));
     }
 
     public List<Subject> getSubjectsByTeacherId (Long teacherId) {

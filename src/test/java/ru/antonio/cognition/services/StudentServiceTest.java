@@ -151,10 +151,7 @@ public class StudentServiceTest {
         Questionnaire questionnaireFromDB = new Questionnaire("biology", questions1);
         questionnaireFromDB.setId(questId);
 
-        List <String> questionsInCorrect = new ArrayList<>(Arrays.asList("t", "a"));
-        Questionnaire questionnaireFromStudentInCorrect
-                = new Questionnaire("biology", questionsInCorrect);
-        questionnaireFromDB.setId(questId);
+
 
         Set <Questionnaire> notPassable = new HashSet<>();
         notPassable.add(questionnaireFromDB);
@@ -173,16 +170,18 @@ public class StudentServiceTest {
         assertThrows(RuntimeException.class,
                 () -> studentService.passTesting(studentId, 666L, questionnaireFromStudent));
 
+        List <String> questionsInCorrect = new ArrayList<>(Arrays.asList("t", "a"));
+        Questionnaire questionnaireFromStudentInCorrect
+                = new Questionnaire("biology", questionsInCorrect);
+        questionnaireFromDB.setId(questId);
+
+        notPassable.add(questionnaireFromDB);
+        student3.setNotPassable(notPassable);
+
         assertThrows(RuntimeException.class,
                 () -> studentService.passTesting(
                         studentId,
                         questId,
                         questionnaireFromStudentInCorrect));
     }
-
-    @Test
-    void counterCorrectAnswerTest () {
-
-    }
-
 }
