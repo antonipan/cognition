@@ -83,7 +83,7 @@ public class Student extends User {
     }
 
     public void setProgress(Double progress) {
-        this.progress = progress;
+        this.progress += progress;
     }
 
     public Set<Subject> getSubjects() {
