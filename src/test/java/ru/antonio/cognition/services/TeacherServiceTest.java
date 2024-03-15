@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.antonio.cognition.models.Questionnaire;
+import ru.antonio.cognition.models.Student;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeacherDao;
@@ -259,42 +260,149 @@ public class TeacherServiceTest {
 
     @Test
     void getQuestionnaireByIdTest () {
+        Long questId = 1L;
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
 
+        when(questService.getQuestionnaireById(questId)).thenReturn(questionnaire);
+
+        Questionnaire findQuestion = teacherService.getQuestionnaireById(questId);
+
+        assertEquals("math", findQuestion.getName());
     }
 
     @Test
     void updateMyQuestionnaireTest () {
+        Long questId = 1L;
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
+
+        when(questService.saveOneQuestionnaire(questionnaire)).thenReturn(questionnaire);
+        when(questService.getQuestionnaireById(questId)).thenReturn(questionnaire);
+
+        Questionnaire findQuest = teacherService.updateMyQuestionnaire(questId, questionnaire);
+
+        assertEquals("math", findQuest.getName());
+
+    }
+
+    @Test
+    void deleteQuestFromMyListTest () {
+        Long teachId = 1L;
+
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
+        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
+
+        Long questId = 11L;
+        List<String> questions = new ArrayList<>(Arrays.asList("g", "o", "g", "i", "a"));
+        Questionnaire questionnaire = new Questionnaire("math", questions);
+
+        Set <Questionnaire> questionnaires = new HashSet<>();
+        questionnaires.add(questionnaire);
+        inna.setQuestionnaires(questionnaires);
+
+        when(teacherDao.save(inna)).thenReturn(inna);
+
+        when(questService.getQuestionnaireById(questId)).thenReturn(questionnaire);
+        List<Questionnaire> questionnaireList = new ArrayList<>(questionnaires);
+        when(questService.getQuestionnairesByTeacherId(teachId)).thenReturn(questionnaireList);
+
+        List <Questionnaire> find = teacherService.deleteQuestFromMyList(teachId, questId);
+
+        assertEquals(1, find.size());
+        assertThrows(NullPointerException.class,
+                () -> teacherService.deleteQuestFromMyList(2L, questId));
+
 
     }
 
     @Test
     void getAllQuestionnaireTest () {
+        Questionnaire questionnaire = new Questionnaire();
+        List<Questionnaire> questList = new ArrayList<>();
+        questList.add(questionnaire);
+        when(questService.getAllQuestionnaire()).thenReturn(questList);
 
+        List<Questionnaire> findQuest = teacherService.getAllQuestionnaire();
+
+        assertEquals(1, findQuest.size());
     }
 
     @Test
     void findQuestByNameTest () {
+        Questionnaire questionnaire = new Questionnaire("math", new ArrayList<>(Arrays.asList("t", "a", "k")));
+        List<Questionnaire> questList = new ArrayList<>();
+        questList.add(questionnaire);
+        when(questService.getAllQuestionnaire()).thenReturn(questList);
 
+        Set<Questionnaire> findQuest = teacherService.findQuestByName("math");
+
+        assertEquals(1, findQuest.size());
     }
 
     @Test
     void getMyStudentsTest () {
+        Student igor = new Student();
+        Student pavel = new Student();
+        Long teachId = 1L;
+        Set<Student> students = new HashSet<>(Arrays.asList(igor, pavel));
+        when(studentService.getStudentsByTeacherId(teachId)).thenReturn(students);
 
+        Set<Student> findStud = teacherService.getMyStudents(teachId);
+
+        assertEquals(2, findStud.size());
     }
 
     @Test
     void getAllStudentsTest () {
+        Student igor = new Student();
+        Student pavel = new Student();
+        List <Student> students = new ArrayList<>(Arrays.asList(igor, pavel));
+        when(studentService.getAllStudents()).thenReturn(students);
 
+        List <Student> findStudent = teacherService.getAllStudents();
+
+        assertEquals(2, findStudent.size());
     }
 
     @Test
     void addStudentToListTest () {
+        Long teachId = 1L;
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
+        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
 
+        Long studId = 5L;
+        Student vals = new Student();
+        when(studentService.getStudentByName("vals")).thenReturn(vals);
+
+        when(teacherDao.save(inna)).thenReturn(inna);
+
+        Student igor = new Student();
+        Student pavel = new Student();
+        Set<Student> students = new HashSet<>(List.of(vals));
+        when(studentService.getStudentsByTeacherId(teachId)).thenReturn(students);
+
+        Set<Student> findStudent = teacherService.addStudentToList(teachId, "vals");
+
+        assertEquals(1, findStudent.size());
     }
 
     @Test
     void deleteStudentFromListTeacherTest () {
+        Long teachId = 1L;
+        when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
+        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
 
+        Long studId = 11L;
+        Student bob = new Student();
+
+        when(teacherDao.save(inna)).thenReturn(inna);
+
+        List<Questionnaire> questionnaireList = new ArrayList<>();
+        when(questService.getQuestionnairesByTeacherId(teachId))
+                .thenReturn(new ArrayList<>(inna.getQuestionnaires()));
+
+        List<Questionnaire> findQuest = teacherService.deleteStudentFromListTeacher(teachId, st);
     }
 
     @Test

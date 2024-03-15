@@ -180,7 +180,7 @@ public class TeacherServiceImpl implements TeacherService {
         return studentService.getAllStudents();
     }
 
-    public Object addStudentToList(Long teacherId, String name) {
+    public Set<Student> addStudentToList(Long teacherId, String name) {
         Teacher oldTeacher = getTeacherById(teacherId);
         Student student = studentService.getStudentByName(name);
         oldTeacher.addStudentToTeacher(student);
