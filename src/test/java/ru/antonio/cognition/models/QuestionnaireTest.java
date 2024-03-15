@@ -37,19 +37,23 @@ public class QuestionnaireTest {
     void setIdTest () {
         questionnaire.setId(11L);
         assertNotEquals(10, questionnaire.getId());
-        assertEquals(11L, questionnaire.getId());
+        Long num = questionnaire.getId();
+        assertEquals(11L, num);
+
     }
 
     @Test
     void getNameTest() {
         questionnaire.setName("bob");
-        assertEquals("bob", questionnaire.getName());
+        String name = questionnaire.getName();
+        assertEquals("bob", name);
     }
 
     @Test
     void setNameTest () {
         questionnaire.setName("gor");
-        assertEquals("gor", questionnaire.getName());
+        String name = questionnaire.getName();
+        assertEquals("gor", name);
     }
 
     @Test

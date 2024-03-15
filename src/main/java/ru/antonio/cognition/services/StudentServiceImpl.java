@@ -11,7 +11,6 @@ import ru.antonio.cognition.repositories.TeacherDao;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
