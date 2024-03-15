@@ -396,13 +396,18 @@ public class TeacherServiceTest {
         Long studId = 11L;
         Student bob = new Student();
 
+        when(studentService.getStudentById(studId)).thenReturn(bob);
+
         when(teacherDao.save(inna)).thenReturn(inna);
+        inna.addStudentToTeacher(bob);
 
-        List<Questionnaire> questionnaireList = new ArrayList<>();
-        when(questService.getQuestionnairesByTeacherId(teachId))
-                .thenReturn(new ArrayList<>(inna.getQuestionnaires()));
+        Set<Student> students = new HashSet<>();
 
-        List<Questionnaire> findQuest = teacherService.deleteStudentFromListTeacher(teachId, st);
+        when(studentService.getStudentsByTeacherId(teachId)).thenReturn(students);
+
+        List<Student> findStudents = teacherService.deleteStudentFromListTeacher(teachId, studId);
+
+        assertEquals(0, findStudents.size());
     }
 
     @Test
@@ -412,6 +417,13 @@ public class TeacherServiceTest {
 
     @Test
     void getTeacherByNameTest () {
+        String name = "inna";
+        List <Teacher> teachers = new ArrayList<>();
+        teachers.add(inna);
+        when(teacherDao.findByName(name)).thenReturn(teachers);
 
+        List <Teacher> findTeach = teacherService.getTeacherByName(name);
+
+        assertTrue(findTeach.contains(inna));
     }
 }
