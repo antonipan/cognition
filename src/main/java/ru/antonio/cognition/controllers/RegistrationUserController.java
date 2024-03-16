@@ -1,5 +1,6 @@
 package ru.antonio.cognition.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import ru.antonio.cognition.services.UserServiceImpl;
  * @author Antonio
  * @version 1.1
  */
+@Tag(name = "regist")
 @Controller
 @RequestMapping()
 public class RegistrationUserController {
@@ -42,7 +44,7 @@ public class RegistrationUserController {
      */
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcome () {
-        return "forward:/api/api.html";
+        return "forward:/api/welcome.html";
     }
 
     /**

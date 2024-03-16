@@ -61,10 +61,10 @@ public class RegistrationUserControllerTest {
     void welcomeTest() throws Exception {
         mvc.perform(get("/welcome"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("forward:/api/api.html"));
+                .andExpect(view().name("forward:/api/welcome.html"));
         String url = regUsController.welcome();
 
-        assertEquals("forward:/api/api.html", url);
+        assertEquals("forward:/api/welcome.html", url);
     }
 
     @Test
