@@ -20,9 +20,19 @@ import java.util.Set;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
-
+    /**
+     * Хранилище сущности ученика {@link Student}
+     */
     private StudentDao studentDao;
+
+    /**
+     * Хранилище сущности учителя {@link Teacher}
+     */
     private TeacherDao teacherDao;
+
+    /**
+     * Сервис управления сущностю "Методика" {@link Questionnaire}
+     */
     private QuestionnaireService questionnaireService;
 
     @Autowired
@@ -34,30 +44,60 @@ public class StudentServiceImpl implements StudentService {
         this.questionnaireService = questionnaireService;
     }
 
+    /**
+     * сохраняет студента
+     * @param student - сохраняемый студент
+     */
     @Override
     public void saveStudent(Student student) {
         studentDao.save(student);
     }
 
+    /**
+     * получает список учеников по идентификатору учителя
+     * @param teacherId - ID учителя
+     * @return список учеников учителя без повтора
+     */
     public Set<Student> getStudentsByTeacherId(Long teacherId) {
         return new HashSet<>(studentDao.findStudentsByTeachersId(teacherId));
     }
 
+    /**
+     * получает список всех учеников
+     * @return - список полученных учеников
+     */
     public List<Student> getAllStudents() {
         return studentDao.findAll();
     }
 
+    /**
+     * получает ученика по его имени.
+     * Если ученика нет - выбрасывается исключение
+     * @param name - имя ученика
+     * @return - найденный ученки
+     */
     public Student getStudentByName(String name) {
         return studentDao.findByName(name)
                 .stream().findAny()
                 .orElseThrow(() -> new NullPointerException("Not found"));
     }
 
+    /**
+     * получает ученика по его идентификатору
+     * @param studentId ID ученика
+     * @return найденный ученик. Если он не найден, выбрасыватеся исключение
+     */
     public Student getStudentById(Long studentId) {
         return studentDao.findById(studentId)
                 .orElseThrow(() -> new NullPointerException("Not found"));
     }
 
+    /**
+     * обновляет студента по его ID
+     * @param id - ID студента
+     * @param student1 - новые данные о студенте
+     * @return ученик с обновлёнными данными
+     */
     public Student updateStudent(Long id, Student student1) {
         Student oldStudent = studentDao.findById(id)
                 .orElseThrow(() -> new NullPointerException("Not found"));
@@ -68,14 +108,30 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.save(oldStudent);
     }
 
+    /**
+     * поиск учителя по его имени
+     * @param name имя учителя
+     * @return список учителей
+     */
     public List<Teacher> findTeacherByName(String name) {
         return teacherDao.findByName(name);
     }
 
+    /**
+     * показывает методику по её ID
+     * @param questId ID методики
+     * @return найденная методика
+     */
     public Questionnaire showQuestionnaire(Long questId) {
         return questionnaireService.getQuestionnaireById(questId);
     }
 
+    /**
+     * метод прохождения методики студентом
+     * @param studentId ID студента
+     * @param questId ID методики
+     * @param questFromStudent ответы студента.
+     */
     public void passTesting(Long studentId, Long questId, Questionnaire questFromStudent) {
         // Получаем студента из репозитория
         Student student = studentDao.findById(studentId)
@@ -98,7 +154,12 @@ public class StudentServiceImpl implements StudentService {
         studentDao.save(student);
     }
 
-
+    /**
+     * Вспомогательный метод подсчитывает количество правильных ответов
+     * @param questDB - методика из базы данных с эталонными ответами
+     * @param questUser - ответы пользователя.
+     * @return
+     */
     // TODO: 14.03.2024 После преобразования коллекции вопросов изменить метод.
     private double counterCorrectAnswer(Questionnaire questDB, Questionnaire questUser) {
         double counterAnswer = 0;
