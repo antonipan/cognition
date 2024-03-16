@@ -13,6 +13,7 @@ import java.util.Optional;
  * @version 1.0
  */
 public interface RoleDao extends JpaRepository<Role, Long> {
+// TODO: 16.03.2024 дописать документацию
 
     Optional<Role> findByName (String name);
 }

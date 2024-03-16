@@ -12,6 +12,7 @@ import java.util.List;
  * @version 1.0
  */
 public interface QuestionnaireDao extends JpaRepository<Questionnaire, Long> {
+// TODO: 16.03.2024 дописать документацию
 
     List<Questionnaire> findQuestionnairesByTeachersId(Long teacherId);
 

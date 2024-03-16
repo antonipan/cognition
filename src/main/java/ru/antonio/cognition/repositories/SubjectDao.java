@@ -15,9 +15,7 @@ import java.util.List;
  * @version 1.0
  */
 public interface SubjectDao extends JpaRepository<Subject, Integer> {
-
-//    @Query("SELECT s FROM Subject s JOIN s.teachers WHERE s.id = (:id)")
-//    List <Subject> getSubjectByTeacher (@Param("id") Long id);
+// TODO: 16.03.2024 дописать документацию
 
     List <Subject> findSubjectsByTeachersId(Long id);
 

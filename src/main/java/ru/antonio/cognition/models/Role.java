@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "roles")
 public class Role {
+// TODO: 16.03.2024 дописать документацию
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

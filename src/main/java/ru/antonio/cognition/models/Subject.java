@@ -17,6 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "subjects")
 public class Subject implements Serializable {
+// TODO: 16.03.2024 дописать документацию
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

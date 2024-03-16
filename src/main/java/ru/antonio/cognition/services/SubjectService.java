@@ -9,7 +9,7 @@ import ru.antonio.cognition.repositories.SubjectDao;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+// TODO: 16.03.2024 дописать документацию
 /**
  * Класс упралвения бизнес-логикой сущности {@link Subject}
  *

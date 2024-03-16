@@ -15,18 +15,9 @@ import java.util.List;
  */
 @Repository
 public interface TeacherDao extends UserDao<Teacher> {
-
-    List<Teacher> findByExperience(int experience);
-
-    List<Teacher> findByOrderByName();
-
-    List<Teacher> findByOrderByExperience();
+// TODO: 16.03.2024 дописать документацию
 
     List<Teacher> findByName(String name);
 
-
-//    List<Teacher> findByOrderBySubject();
-//
-//    List<Teacher> findBySubject(String subject);
 
 }

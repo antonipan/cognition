@@ -14,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "teachers")
 public class Teacher extends User {
+// TODO: 16.03.2024 дописать документацию
 
     private String name;
     private Integer experience;

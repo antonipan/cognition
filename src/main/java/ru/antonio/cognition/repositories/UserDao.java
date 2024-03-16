@@ -16,6 +16,7 @@ import java.util.Optional;
  */
 @Repository
 public interface UserDao <T extends User> extends JpaRepository<T, Long> {
+// TODO: 16.03.2024 дописать документацию
 
     Optional<User> findByUsername(String username);
 

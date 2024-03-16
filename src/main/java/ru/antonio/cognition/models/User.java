@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+// TODO: 16.03.2024 дописать документацию
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

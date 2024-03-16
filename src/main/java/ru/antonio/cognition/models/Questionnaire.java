@@ -18,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "questionnaires")
 public class Questionnaire implements Serializable {
+// TODO: 16.03.2024 дописать документацию
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
