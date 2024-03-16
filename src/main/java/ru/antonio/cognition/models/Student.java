@@ -6,6 +6,12 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Класс сущности "Роль" {@link Student}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Entity
 @Table(name = "students")
 public class Student extends User {

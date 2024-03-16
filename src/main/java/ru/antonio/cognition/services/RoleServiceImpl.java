@@ -2,6 +2,7 @@ package ru.antonio.cognition.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.antonio.cognition.models.Questionnaire;
 import ru.antonio.cognition.models.Role;
 import ru.antonio.cognition.models.User;
 import ru.antonio.cognition.repositories.RoleDao;
@@ -9,7 +10,12 @@ import ru.antonio.cognition.repositories.RoleDao;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * Класс упралвения бизнес-логикой сущности {@link Role}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Service
 public class RoleServiceImpl implements RoleService{
 

@@ -14,6 +14,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Класс упралвения бизнес-логикой сущности {@link Teacher}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Service
 public class TeacherServiceImpl implements TeacherService {
 

@@ -9,6 +9,12 @@ import ru.antonio.cognition.repositories.UserDao;
 
 import java.util.List;
 
+/**
+ * Класс упралвения бизнес-логикой сущности {@link User}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -16,7 +22,6 @@ public class UserServiceImpl implements UserService {
     private RoleServiceImpl roleService;
     private TeacherServiceImpl teacherService;
     private StudentServiceImpl studentService;
-//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserDao<User> userDao,

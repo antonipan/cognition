@@ -7,6 +7,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ * Класс сущности "Роль" {@link Subject}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Entity
 @Table(name = "subjects")
 public class Subject implements Serializable {

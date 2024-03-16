@@ -5,7 +5,12 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * Класс сущности "Учитель" {@link Teacher}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Entity
 @Table(name = "teachers")
 public class Teacher extends User {

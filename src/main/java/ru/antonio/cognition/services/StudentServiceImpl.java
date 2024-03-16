@@ -12,6 +12,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Класс упралвения бизнес-логикой сущности {@link Student}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Service
 public class StudentServiceImpl implements StudentService {
 

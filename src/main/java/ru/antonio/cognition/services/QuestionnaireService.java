@@ -7,6 +7,12 @@ import ru.antonio.cognition.repositories.QuestionnaireDao;
 
 import java.util.List;
 
+/**
+ * Класс упралвения бизнес-логикой сущности {@link Questionnaire}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Service
 public class QuestionnaireService {
     private QuestionnaireDao questionnaireDao;

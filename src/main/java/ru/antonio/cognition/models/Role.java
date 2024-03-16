@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 
 
 /**
- * Simple JavaBean Object that represents role of {@link User}
- * @author Antonio Panotti
+ * Класс сущности "Роль" {@link Role}
+ *
+ * @author Antonio
  * @version 1.0
  */
 @Entity

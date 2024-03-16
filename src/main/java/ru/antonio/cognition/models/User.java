@@ -3,8 +3,9 @@ package ru.antonio.cognition.models;
 import jakarta.persistence.*;
 
 /**
- * Simple JavaBean Object that represents a User
- * @author Antonio Panotti
+ * Класс сущности "Пользователь" {@link User}
+ *
+ * @author Antonio
  * @version 1.0
  */
 

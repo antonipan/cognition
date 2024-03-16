@@ -9,7 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * Класс сущности "Методика" {@link Questionnaire}
+ *
+ * @author Antonio
+ * @version 1.0
+ */
 @Entity
 @Table(name = "questionnaires")
 public class Questionnaire implements Serializable {
