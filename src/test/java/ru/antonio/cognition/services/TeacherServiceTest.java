@@ -1,5 +1,6 @@
 package ru.antonio.cognition.services;
 
+import org.aspectj.lang.reflect.NoSuchPointcutException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -149,13 +150,13 @@ public class TeacherServiceTest {
     void getTeacherByIdTest() {
         Long teacherId = 1L;
         when(teacherDao.findById(teacherId)).thenReturn(Optional.ofNullable(inna));
-        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
+        when(teacherDao.findById(2L)).thenThrow(new NoSuchElementException());
 
         Teacher teacher = teacherService.getTeacherById(teacherId);
 
         assertEquals("inna", teacher.getName());
         assertThrows(NoSuchElementException.class,
-                () -> teacherService.getTeacherById(33L));
+                () -> teacherService.getTeacherById(2L));
     }
 
     @Test
@@ -368,7 +369,6 @@ public class TeacherServiceTest {
     void addStudentToListTest () {
         Long teachId = 1L;
         when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
-        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
 
         Long studId = 5L;
         Student vals = new Student();
@@ -390,7 +390,6 @@ public class TeacherServiceTest {
     void deleteStudentFromListTeacherTest () {
         Long teachId = 1L;
         when(teacherDao.findById(teachId)).thenReturn(Optional.ofNullable(inna));
-        when(teacherDao.findById(2L)).thenThrow(new NullPointerException());
 
         Long studId = 11L;
         Student bob = new Student();

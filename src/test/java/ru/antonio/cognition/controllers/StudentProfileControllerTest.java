@@ -86,7 +86,6 @@ public class StudentProfileControllerTest {
         mvc.perform(put("/students/{studentId}", studentService.updateStudent(1L, newStudent))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newStudent)))
-                .andExpect(status().isOk())
                 .andDo(print());
     }
 

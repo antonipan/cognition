@@ -1,5 +1,6 @@
 package ru.antonio.cognition.services;
 
+import org.eclipse.jetty.io.RuntimeIOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antonio.cognition.models.Questionnaire;
@@ -140,7 +141,7 @@ public class StudentServiceImpl implements StudentService {
         if(!student.getNotPassable()
                 .contains(questionnaireService
                         .getQuestionnaireById(questId))) {
-            throw new RuntimeException("You cannot pass this test");
+            throw new RuntimeIOException("You cannot pass this test");
         }
         // Получаем методику из базы данных.
         Questionnaire questFromDB = questionnaireService.getQuestionnaireById(questId);

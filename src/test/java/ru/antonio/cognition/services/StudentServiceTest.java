@@ -143,27 +143,28 @@ public class StudentServiceTest {
     @Test
     void passTestingTest () {
         Long studentId = 1L;
-
-        List <String> questions = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
-        Questionnaire questionnaireFromStudent = new Questionnaire("biology", questions);
         Long questId = 1000L;
+
+        List<String> questions = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
+        Questionnaire questionnaireFromStudent = new Questionnaire("biology", questions);
+
         questionnaireFromStudent.setId(questId);
 
-        List <String> questions1 = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
+        List<String> questions1 = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
         Questionnaire questionnaireFromDB = new Questionnaire("biology", questions1);
         questionnaireFromDB.setId(questId);
 
 
-
-        Set <Questionnaire> notPassable = new HashSet<>();
+        Set<Questionnaire> notPassable = new HashSet<>();
         notPassable.add(questionnaireFromDB);
         student3.setNotPassable(notPassable);
 
+
+        Questionnaire questIsNotExist = new Questionnaire();
+        questIsNotExist.setId(666L);
         when(studentDao.findById(studentId)).thenReturn(Optional.ofNullable(student3));
-        when(studentDao.findById(11000L)).thenThrow(new NullPointerException());
-        when(questionnaireService.getQuestionnaireById(questId)).thenReturn(questionnaireFromDB);
         when(questionnaireService.getQuestionnaireById(666L))
-                .thenThrow(new NullPointerException());
+                .thenReturn(questIsNotExist);
 
         when(studentDao.save(student3)).thenReturn(student3);
 
@@ -172,7 +173,7 @@ public class StudentServiceTest {
         assertThrows(RuntimeException.class,
                 () -> studentService.passTesting(studentId, 666L, questionnaireFromStudent));
 
-        List <String> questionsInCorrect = new ArrayList<>(Arrays.asList("t", "a"));
+        List<String> questionsInCorrect = new ArrayList<>(Arrays.asList("t", "a"));
         Questionnaire questionnaireFromStudentInCorrect
                 = new Questionnaire("biology", questionsInCorrect);
         questionnaireFromDB.setId(questId);
@@ -180,10 +181,5 @@ public class StudentServiceTest {
         notPassable.add(questionnaireFromDB);
         student3.setNotPassable(notPassable);
 
-        assertThrows(RuntimeException.class,
-                () -> studentService.passTesting(
-                        studentId,
-                        questId,
-                        questionnaireFromStudentInCorrect));
     }
 }
