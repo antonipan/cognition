@@ -1,6 +1,5 @@
 package ru.antonio.cognition.services;
 
-import jakarta.persistence.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.antonio.cognition.models.Questionnaire;
@@ -16,16 +17,14 @@ import ru.antonio.cognition.models.Student;
 import ru.antonio.cognition.models.Subject;
 import ru.antonio.cognition.models.Teacher;
 import ru.antonio.cognition.repositories.TeacherDao;
-import ru.antonio.cognition.services.TeacherService;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.isA;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TeacherServiceTest {
