@@ -1,0 +1,132 @@
+@enduml
+
+@startuml: Учитель - работа с предметом. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Учитель as Teacher
+participant Сервис as Service
+
+alt
+Teacher -> Service: запрашивает все предметы
+Service -> Teacher: список предметов с их ID и названию
+
+alt
+Teacher -> Service: Учитель создаёт предмет по имени
+Service -> Teacher: список всех предметов
+
+alt
+Teacher -> Service: запрос на добавление предмета
+Service -> Teacher: список предметов учителя
+
+alt
+Teacher -> Service: запрос на просмотр предметов учителя
+Service -> Teacher: список предметов учителя
+
+alt
+Teacher -> Service: запрос на удаление предмета из списка учителя
+Service -> Teacher: список предметов учителя без удалённого предмета
+
+@enduml
+
+@enduml
+
+@startuml: Учитель - работа с методикой. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Учитель as Teacher
+participant Сервис as Service
+participant БД as teachDB
+
+alt
+Teacher -> Service: запрос на показ методик учителя
+Service -> teachDB: запрос на все методики
+teachDB -> Service: список всех методик
+Service -> Teacher: список всех методик
+
+alt
+Teacher -> Service: создание методики
+Service -> teachDB: сохранение методики
+teachDB -> Service: список всех методик
+Service -> Teacher: список всех методик
+
+alt
+Teacher -> Service: обновление методики
+Service -> teachDB: поиск и сохранение старой методики
+teachDB -> Service: возврат обновлённой методики
+Service -> Teacher: показ профиля методики
+
+alt
+Teacher -> Service: запрос на удаление методики из списка учителя
+Service -> teachDB: поиск методики из базы данных
+teachDB -> Service: удаление связи метоидки и учителя
+Service -> Teacher: отображение списка методик учителя без удалённой методики
+
+alt
+Teacher -> Service: запрос на показ всех методик
+Service -> teachDB: запрос в базу на все методики
+teachDB -> Service: возврат всех методик
+Service -> Teacher: отображение списка методик
+
+Teacher -> Service: запрос на просмотр профиля методики
+Service -> teachDB: поиск методики в базе данных
+teachDB -> Service: возврат методики из базы
+Service -> Teacher: отображение профиля методики
+
+Teacher -> Service: добавление методики в список учителя
+Service -> teachDB: поиск методики в базе данных
+teachDB -> Service: возврат методики из базы
+Service -> Teacher: отображение списка методик учителя
+
+Teacher -> Service: поиск методики по имени
+Service -> teachDB: запрос в базу данных по имени
+teachDB -> Service: возврат списка методик
+Service -> Teacher: показ списка методик учителю
+
+@enduml
+
+@startuml: Учитель - работа с учениками. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Учитель as Teacher
+participant Сервис as Service
+participant БД as teachDB
+
+alt
+Teacher -> Service: запрос на список учеников учителя
+Service -> teachDB: поиск учеников по ID учителя
+teachDB -> Service: список учеников учителя
+Service -> Teacher: список учеников учителя
+
+alt
+Teacher -> Service: запрос на просмотр профиля ученика
+Service -> teachDB: поиск ученика по его ID
+teachDB -> Service: ученик
+Service -> Teacher: отображение профиля ученика
+
+alt
+Teacher -> Service: предложение ученику пройти методику
+Service -> teachDB: поиск методики и ученика по их ID
+teachDB -> Service: возрат методики
+Service -> Teacher: список методик ученика
+
+alt
+Teacher -> Service: запрос на удаление ученика из списка учителя
+Service -> teachDB: поиск ученика
+teachDB -> Service: список учеников
+Service -> Teacher: отображение списка учеников без удалённого студента
+
+alt
+Teacher -> Service: запрос на список всех учеников
+Service -> teachDB: поиск всех учеников
+teachDB -> Service: список всех учеников
+Service -> Teacher: отображение списка всех учеников. 
+
+
+Teacher -> Service: запрос на добалвение ученика в список учителя
+Service -> teachDB: поиск ученика
+teachDB -> Service: список учеников с сохранённым учеником
+Service -> Teacher: список учеников учителя
+@enduml

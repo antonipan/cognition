@@ -18,10 +18,10 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDao<User> userDao;
-    private RoleServiceImpl roleService;
-    private TeacherServiceImpl teacherService;
-    private StudentServiceImpl studentService;
+    private final UserDao<User> userDao;
+    private final RoleServiceImpl roleService;
+    private final TeacherServiceImpl teacherService;
+    private final StudentServiceImpl studentService;
 
     @Autowired
     public UserServiceImpl(UserDao<User> userDao,

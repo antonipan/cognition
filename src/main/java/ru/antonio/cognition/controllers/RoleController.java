@@ -19,7 +19,7 @@ public class RoleController {
     /**
      * Сервис управления ролями
      */
-    private RoleServiceImpl roleService;
+    private final RoleServiceImpl roleService;
 
     /**
      * @param roleService - сервис управления ролями

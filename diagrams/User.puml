@@ -1,0 +1,73 @@
+@startuml: Регистрация пользователя
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Пользователь as Teacher
+participant Сервис as Service
+participant БД_пользователей as userDB
+
+
+Teacher -> Service: пользователь отправляет ИМЯ, ПАРОЛЬ, РОЛЬ
+
+alt Пользователь в роли УЧИТЕЛЯ
+Service --> userDB: сохраняет пользователя в БД как УЧИТЕЛЯ
+
+else Пользователь в роли ученика
+Service -> userDB: сохраняет пользователя в БД как УЧЕНИКА
+end
+userDB -> Service: пользователь успешно сохранён
+Service -> Teacher: возваращает страницу авторизации
+
+@enduml
+
+@startuml: Авторизация пользователя
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Пользователь as Teacher
+participant Сервис as Service
+participant БД_пользователей as userDB
+
+
+Teacher -> Service: пользователь отправляет ИМЯ, ПАРОЛЬ
+
+
+Service --> userDB: ИМЯ и ПАРОЛЬ ищутся в базе
+
+alt если пользователь найден
+Service -> userDB: пользователь НАЙДЕН
+Service -> Teacher: переход на конечную точку в зависимости от роли
+
+else если пользователь НЕ найден
+Service -> userDB: пользователь НЕ найден
+Service -> Teacher: переход на страницу регистрации
+
+end
+
+@enduml
+
+@startuml: Учитель - работа с профилем. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Учитель as Teacher
+participant Сервис as Service
+participant Хранилище as teachDB
+
+Teacher -> Service: отправляет свой ID
+Service -> teachDB: ID ищется в базе данных
+teachDB -> Service: найденные данные
+Service -> Teacher: просматривает свой профиль
+
+Teacher -> Service: Собственные данные, которые хочет обновить.
+Service -> teachDB: ищутся старые данные
+teachDB -> Service: возвращаются старые данные
+Service -> teachDB: данные сохраняются
+Service -> Teacher: данные сохраняются
+
+Teacher -> Service: запрос на удаление своего профиля
+Service -> teachDB: ищется по ID учителя в базе.
+teachDB -> Service: удаляется из базы
+Service -> Teacher: возвращает страницу регистрации. 
+
+@enduml

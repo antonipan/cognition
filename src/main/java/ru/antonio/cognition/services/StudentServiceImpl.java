@@ -24,17 +24,17 @@ public class StudentServiceImpl implements StudentService {
     /**
      * Хранилище сущности ученика {@link Student}
      */
-    private StudentDao studentDao;
+    private final StudentDao studentDao;
 
     /**
      * Хранилище сущности учителя {@link Teacher}
      */
-    private TeacherDao teacherDao;
+    private final TeacherDao teacherDao;
 
     /**
      * Сервис управления сущностю "Методика" {@link Questionnaire}
      */
-    private QuestionnaireService questionnaireService;
+    private final QuestionnaireService questionnaireService;
 
     @Autowired
     public StudentServiceImpl(StudentDao studentDao,

@@ -18,7 +18,7 @@ public class TeacherProfileController {
     /**
      * Сервис управления функциями учителя
      */
-    private TeacherServiceImpl teacherService;
+    private final TeacherServiceImpl teacherService;
 
     /**
      *

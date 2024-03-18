@@ -2,21 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Методика</title>
+        <title>Профиль студента</title>
     </head>
     <body>
-        <h2 th:text="${student.name}">Имя: </h2>
+        <h3 th:text="${student.name}">Имя: </h3>
         <p>ID: <span th:text="${student.id}"></span></p>
-        <p>Предмет: <span th:text="${student.grade}"></span></p>
-        <p>Стаж работы: <span th:text="${student.progress}"></span></p>
+        <p>Класс: <span th:text="${student.grade}"></span></p>
+        <p>Прогресс обучения: <span th:text="${student.progress}"></span></p>
         <p></p>
-        <p>Посмотреть список моих методик</p>
+        <h4>Тесты, которые нужно пройти</h4>
         <table>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
-                <th>Предмет</th>
-                ,<th>Стаж</th>
             </tr>
             <tr th:each="questionnaire: ${noPass}">
                 <th th:text = "${questionnaire.id}"></th>
@@ -24,26 +22,24 @@
             </tr>
         </table>
 
-        <p>Посмотреть список моих методик</p>
+        <h4>Пройденные тесты</h4>
         <table>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
-                <th>Предмет</th>
-                ,<th>Стаж</th>
             </tr>
             <tr th:each="questionnaire: ${pass}">
                 <th th:text = "${questionnaire.id}"></th>
                 <th th:text="${questionnaire.name}"></th>
             </tr>
         </table>
-        <p>Показать список учеников</p>
-        <p>Найти методику по теме</p>
-        <p>Найти ученика и добавить</p>
+        <p>Показать список учителей</p>
+        <p>Найти учителя по имени</p>
+        <p>Пройти методику</p>
         <p></p>
 
 
-        <a th:href = "@{/teachers}">Назад</a>
+        <a th:href = "@{/auth}"> Выйти </a>
 
     </body>
 </html>

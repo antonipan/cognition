@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
-    private TeacherDao teacherDao;
-    private SubjectService subjectService;
-    private QuestionnaireService questService;
-    private StudentServiceImpl studentService;
+    private final TeacherDao teacherDao;
+    private final SubjectService subjectService;
+    private final QuestionnaireService questService;
+    private final StudentServiceImpl studentService;
 
     @Autowired
     public TeacherServiceImpl (TeacherDao teacherDao,

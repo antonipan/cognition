@@ -109,7 +109,7 @@ public class StudentServiceTest {
         when(studentDao.findById(4L)).thenThrow(new NullPointerException());
         when(studentDao.save(student3)).thenReturn(newStudent);
 
-        Student updateStudent = studentService.updateStudent(3l, newStudent);
+        Student updateStudent = studentService.updateStudent(3L, newStudent);
 
         assertNotEquals(13, student3.getSchool());
         assertEquals(13, updateStudent.getSchool());
@@ -143,43 +143,43 @@ public class StudentServiceTest {
     @Test
     void passTestingTest () {
         Long studentId = 1L;
-        Long questId = 1000L;
+        Long questId = 1L;
 
-        List<String> questions = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
+        List<String> questions = new ArrayList<>(Arrays.asList("t", "a", "g"));
         Questionnaire questionnaireFromStudent = new Questionnaire("biology", questions);
-
         questionnaireFromStudent.setId(questId);
 
-        List<String> questions1 = new ArrayList<>(Arrays.asList("t", "a", "g", "a", "t"));
+        List<String> questions1 = new ArrayList<>(Arrays.asList("t", "a", "g"));
         Questionnaire questionnaireFromDB = new Questionnaire("biology", questions1);
         questionnaireFromDB.setId(questId);
-
 
         Set<Questionnaire> notPassable = new HashSet<>();
         notPassable.add(questionnaireFromDB);
         student3.setNotPassable(notPassable);
 
-
-        Questionnaire questIsNotExist = new Questionnaire();
-        questIsNotExist.setId(666L);
         when(studentDao.findById(studentId)).thenReturn(Optional.ofNullable(student3));
-        when(questionnaireService.getQuestionnaireById(666L))
-                .thenReturn(questIsNotExist);
-
+        when(questionnaireService.getQuestionnaireById(questId)).thenReturn(questionnaireFromDB);
         when(studentDao.save(student3)).thenReturn(student3);
 
         studentService.passTesting(studentId, questId, questionnaireFromStudent);
 
+        verify(studentDao, times(1)).findById(studentId);
+        verify(questionnaireService, times(2)).getQuestionnaireById(questId);
+        verify(studentDao, times(1)).save(student3);
         assertThrows(RuntimeException.class,
                 () -> studentService.passTesting(studentId, 666L, questionnaireFromStudent));
 
-        List<String> questionsInCorrect = new ArrayList<>(Arrays.asList("t", "a"));
-        Questionnaire questionnaireFromStudentInCorrect
-                = new Questionnaire("biology", questionsInCorrect);
-        questionnaireFromDB.setId(questId);
-
-        notPassable.add(questionnaireFromDB);
-        student3.setNotPassable(notPassable);
+//        List<String> questionsIncorrect = new ArrayList<>(List.of("t", "x", "y"));
+//        Questionnaire inCorrect = new Questionnaire("biology", questionsIncorrect);
+//
+//        notPassable.add(questionnaireFromDB);
+//        student3.setNotPassable(notPassable);
+//
+//        studentService.passTesting(studentId, questId, inCorrect);
+//
+//        assertThrows(RuntimeException.class,
+//                () -> studentService.passTesting(studentId, questId, inCorrect));
 
     }
+
 }

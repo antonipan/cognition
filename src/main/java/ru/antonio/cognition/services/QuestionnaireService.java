@@ -18,7 +18,7 @@ public class QuestionnaireService {
     /**
      * Хранилище сущности {@link Questionnaire}
      */
-    private QuestionnaireDao questionnaireDao;
+    private final QuestionnaireDao questionnaireDao;
 
     /**
      *

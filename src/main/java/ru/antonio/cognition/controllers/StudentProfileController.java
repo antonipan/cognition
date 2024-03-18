@@ -20,7 +20,7 @@ public class StudentProfileController {
     /**
      * Сервис студентов.
      */
-    private StudentServiceImpl studentService;
+    private final StudentServiceImpl studentService;
 
     /**
      *

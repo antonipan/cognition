@@ -19,7 +19,7 @@ import java.util.Set;
 @Service
 public class SubjectService {
 
-    private SubjectDao subjectDao;
+    private final SubjectDao subjectDao;
 
     @Autowired
     public SubjectService(SubjectDao subjectDao) {

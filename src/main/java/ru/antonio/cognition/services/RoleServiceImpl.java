@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService{
     /**
      * Хранилище сущности Роль {@link Role}
      */
-    private RoleDao roleDao;
+    private final RoleDao roleDao;
 
     /**
      *

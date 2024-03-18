@@ -1,0 +1,66 @@
+@startuml: Ученик - работа с профилем. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Ученик as Student
+participant Сервис as Service
+participant БД as studDB
+
+alt
+Student -> Service: запрос на просмотр своего профиля
+Service -> studDB: поиск данных
+studDB -> Service: информация ученика
+Service -> Student: отображение информации ученика
+
+Student -> Service: запрос на обновление данных
+Service -> studDB: поиск старых данных
+studDB -> Service: замена на новые данные
+Service -> Student: отображение новых данных
+
+
+@enduml
+
+@startuml: Ученик - работа с учителями. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Ученик as Student 
+participant Сервис as Service
+participant БД as studDB
+
+alt
+Student -> Service: запрос на поиск учителя по его имени
+Service -> studDB: поиск в базе данных
+studDB -> Service: учитель
+Service -> Student: отображение списка учителей
+
+Student -> Service: запрос на просмотр списка учителей ученика
+Service -> studDB: поиск учителей по ID ученика
+studDB -> Service: список учителей
+Service -> Student: отображение списка учителей
+
+
+@enduml
+
+@startuml: Ученик - работа с методиками. 
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Ученик as Student
+participant Сервис as Service
+participant БД as studDB
+
+Student -> Service: запрос на просотр методики
+Service -> studDB: поиск методики в базе
+studDB -> Service: информация методики
+Service -> Student: отображение профиля методики
+alt
+Student -> Service: запрос на прохожение методики
+Service -> studDB: поиск методики по ID
+studDB -> Service: прохождение и проверка методики
+Service -> Student: отображение своего профиля
+
+
+
+
+@enduml
